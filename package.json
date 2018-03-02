@@ -1,0 +1,29 @@
+{
+  "name": "lite-date",
+  "version": "0.0.1",
+  "description": "Simple lightweight date object tool that allows data formatting and manipulation",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fixiecoder/lite-date.git"
+  },
+  "keywords": [
+    "date",
+    "moment",
+    "alternative",
+    "lite",
+    "simple",
+    "easy",
+    "time",
+    "datetime"
+  ],
+  "author": "fixiecoder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fixiecoder/lite-date/issues"
+  },
+  "homepage": "https://github.com/fixiecoder/lite-date#readme"
+}
