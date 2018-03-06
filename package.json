@@ -1,13 +1,14 @@
 {
-  "name": "lite-date",
+  "name": "utc-date",
   "version": "0.0.1",
   "description": "Simple lightweight date object tool that allows data formatting and manipulation",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "npm test",
-    "build": "export mode=development && webpack",
+    "build": "export mode=development && webpack --watch",
     "build:dev": "npm run build",
-    "build:prod": "export mode=production && webpack"
+    "build:prod": "export mode=production && webpack",
+    "postinstall": "npm run build:prod"
   },
   "repository": {
     "type": "git",

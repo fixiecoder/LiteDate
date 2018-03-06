@@ -6,9 +6,9 @@ module.exports = {
   entry: './src/index.js',
   mode,
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'lite-date',
+    library: 'utc-date',
     libraryTarget: 'umd',
   }
 };
