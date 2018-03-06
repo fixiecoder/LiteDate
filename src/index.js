@@ -1,3 +1,15 @@
+const DAY_MS = 86400000;
+const HALF_DAY = 43200000; 
+const QUARTER_DAY = 21600000;
+let mod = year % 4;
+
+if(mod) {
+  yearsMs -= mod * QUARTER_DAY;
+} else {
+  yearsMs -= DAY_MS;
+}
+console.log(new Date(yearsMs));
+
 /** prefixUnitZero
  * add a 0 to a number below 10 (ie, a unit)
  * @param val: number
@@ -45,6 +57,9 @@ export default class UTCDate {
     if(this._jsDate.toString() === 'Invalid Date') {
       throw new Error('Invalid value given to UTCDate constructor');
     }
+
+
+
     this._monthsIndex = [
       { long: 'January', short: 'Jan' },
       { long: 'February', short: 'Feb' },
@@ -71,6 +86,13 @@ export default class UTCDate {
     ];
 
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
+  }
+
+  caclulateEpoch(dateArray = []) {
+    if(dateArray[0]) {
+      let yearsMs = ((dateArray[0] - 1970) * DAY_MS * 365.25) + HALF_DAY;
+    }
+
   }
 
   formatted(type = this._TYPES.LONG) {
