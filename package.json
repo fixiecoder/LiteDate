@@ -4,7 +4,10 @@
   "description": "Simple lightweight date object tool that allows data formatting and manipulation",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "build": "export mode=development && webpack",
+    "build:dev": "npm run build",
+    "build:prod": "export mode=production && webpack"
   },
   "repository": {
     "type": "git",
@@ -25,5 +28,9 @@
   "bugs": {
     "url": "https://github.com/fixiecoder/lite-date/issues"
   },
-  "homepage": "https://github.com/fixiecoder/lite-date#readme"
+  "homepage": "https://github.com/fixiecoder/lite-date#readme",
+  "devDependencies": {
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10"
+  }
 }

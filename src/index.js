@@ -38,7 +38,7 @@ function getOrdinal(number) {
   }
 }
 
-class UTCDate {
+export default class UTCDate {
   constructor(dateValue) {
     this._originalDateValue = dateValue;
     this._jsDate = new Date(dateValue);
@@ -98,9 +98,10 @@ class UTCDate {
     H HH      0..23 Hours (24 hour time)
     h hh      1..12 Hours (12 hour time used with a A.)
     m mm      0..59 Minutes
-
-    a A       am pm Post or ante meridiem (Note the one character a p are also considered valid)
     s ss      0..59 Seconds
+
+    TODO:
+    a A       am pm Post or ante meridiem (Note the one character a p are also considered valid)
     S SS SSS  0..999  Fractional seconds
     Z ZZ      +12:00  Offset from UTC as +-HH:mm, +-HHmm, or Z
 
