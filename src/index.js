@@ -1,5 +1,5 @@
-import { prefixUnitZero, getOrdinal, getMonth, caclulateEpochMS } from './methods';
-import {
+const { prefixUnitZero, getOrdinal, getMonth, caclulateEpochMS } = require('./methods');
+const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
   DAYS_OF_WEEK_2,
@@ -7,9 +7,9 @@ import {
   HALF_DAY,
   QUARTER_DAY,
   YEAR_MS,
-} from './constants';
+} = require('./constants');
 
-export default class UTCDate {
+module.exports = class UTCDate {
   constructor(_date) {
     this._monthsIndex = MONTHS_INDEX;
     this._daysOfWeek = DAYS_OF_WEEK;
@@ -28,7 +28,13 @@ export default class UTCDate {
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
   }
 
-  // caclulateEpochMS = () => {};
+  valueOf() {
+    return this.epochMs;
+  }
+
+  toString() {
+    return 'this is a date'
+  }
 
   getEpochMS() {
     return this.epochMs;

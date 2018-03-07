@@ -1,4 +1,4 @@
-import {
+const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
   DAYS_OF_WEEK_2,
@@ -8,14 +8,14 @@ import {
   YEAR_MS,
   MINUTE_MS,
   HOUR_MS,
-} from './constants';
+} = require('./constants');
 
 /** prefixUnitZero
  * add a 0 to a number below 10 (ie, a unit)
  * @param val: number
  * @return string
  */
-export function prefixUnitZero(val) {
+function prefixUnitZero(val) {
   let newVal = val;
   if(val < 0) {
     newVal = val / -1;
@@ -28,7 +28,7 @@ export function prefixUnitZero(val) {
 }
 
 
-export function getOrdinal(number) {
+function getOrdinal(number) {
   const numberAsString = number.toString();
   const lastDigit = numberAsString.charAt(numberAsString.length - 1);
   switch(lastDigit) {
@@ -51,7 +51,7 @@ export function getOrdinal(number) {
   }
 }
 
-export function getMonth(dayOfYear, isLeapYear) {
+function getMonth(dayOfYear, isLeapYear) {
   const leapYearAddition = isLeapYear ? 1 : 0;
   if(dayOfYear <= 31) {
     return MONTHS_INDEX[0]; // jan
@@ -105,7 +105,7 @@ export function getMonth(dayOfYear, isLeapYear) {
   Z ZZ      +12:00  Offset from UTC as +-HH:mm, +-HHmm, or Z
 
 */
-export function format(formatString = '') {
+function format(formatString = '') {
   const splitCharsRX = /[\/\s:-]/g;
   const parts = formatString.split(/[\/\s:-]/);
   const splitChars = formatString.match(splitCharsRX);
@@ -192,14 +192,14 @@ export function format(formatString = '') {
   return output;
 }
 
-export function getMonthFromNumber(monthNumber) {
+function getMonthFromNumber(monthNumber) {
   if(monthNumber < 0) {
     throw new Error('months are not zero indexed, please use the correct month number e.g. for January use 1');
   }
   return MONTHS_INDEX[monthNumber - 1];
 }
 
-export function caclulateEpochMS(dateArray = []) {
+function caclulateEpochMS(dateArray = []) {
   let epochMs = 0;
   let isLeapYear = false;
   if(dateArray[0]) {
@@ -237,3 +237,12 @@ export function caclulateEpochMS(dateArray = []) {
 
   return epochMs;
 }
+
+module.exports = {
+  prefixUnitZero,
+  getOrdinal,
+  getMonth,
+  format,
+  getMonthFromNumber,
+  caclulateEpochMS,
+};

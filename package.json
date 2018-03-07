@@ -2,14 +2,15 @@
   "name": "utc-date",
   "version": "0.0.1",
   "description": "Simple lightweight date object tool that allows data formatting and manipulation",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "npm test",
+    "test": "mocha",
     "build": "export mode=development && webpack --watch",
     "build:dev": "npm run build",
     "build:prod": "export mode=production && webpack",
     "postinstall": "npm run build:prod"
   },
+  "browser": "./dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fixiecoder/lite-date.git"
@@ -31,6 +32,11 @@
   },
   "homepage": "https://github.com/fixiecoder/lite-date#readme",
   "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "chai": "^4.1.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.0.0",
+    "mocha": "^5.0.3",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10"
   }

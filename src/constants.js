@@ -1,4 +1,4 @@
-export const MONTHS_INDEX = [
+const MONTHS_INDEX = [
   { long: 'January', short: 'Jan', daysInMonth: 31, dayOfYearIndex: 0 },
   { long: 'February', short: 'Feb', daysInMonth: 28, dayOfYearIndex: 31 },
   { long: 'March', short: 'Mar', daysInMonth: 31, dayOfYearIndex: 59 },
@@ -13,7 +13,7 @@ export const MONTHS_INDEX = [
   { long: 'December', short: 'Dec', daysInMonth: 31, dayOfYearIndex: 334 },
 ];
 
-export const DAYS_OF_WEEK = [
+const DAYS_OF_WEEK = [
   { long: 'Sunday', short: 'Sun', day: 7 },
   { long: 'Monday', short: 'Mon', day: 1 },
   { long: 'Tuesday', short: 'Tue', day: 2 },
@@ -23,11 +23,23 @@ export const DAYS_OF_WEEK = [
   { long: 'Saturday', short: 'Sat', day: 6 },
 ];
 
-export const DAYS_OF_WEEK_2 = ['THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY'];
+const DAYS_OF_WEEK_2 = ['THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY'];
 
-export const MINUTE_MS = 60000;
-export const HOUR_MS = 3600000;
-export const DAY_MS = 86400000;
-export const HALF_DAY = 43200000;
-export const QUARTER_DAY = 21600000;
-export const YEAR_MS = 31557600000;
+const MINUTE_MS = 60000;
+const HOUR_MS = 3600000;
+const DAY_MS = 86400000;
+const HALF_DAY = 43200000;
+const QUARTER_DAY = 21600000;
+const YEAR_MS = 31557600000;
+
+module.exports = {
+  MONTHS_INDEX,
+  DAYS_OF_WEEK,
+  DAYS_OF_WEEK_2,
+  MINUTE_MS,
+  HOUR_MS,
+  DAY_MS,
+  HALF_DAY,
+  QUARTER_DAY,
+  YEAR_MS,
+};
