@@ -4,7 +4,7 @@
   "description": "Simple lightweight date object tool that allows data formatting and manipulation",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --reporter dot",
     "build": "export mode=development && webpack --watch",
     "build:dev": "npm run build",
     "build:prod": "export mode=production && webpack",

@@ -1,67 +1,99 @@
-const { prefixUnitZero, getOrdinal, getMonth, caclulateEpochMS } = require('./methods');
+const { prefixUnitZero, getOrdinal, getMonthFromDayOfYear } = require('./methods');
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
-  DAYS_OF_WEEK_2,
+  DAYS_OF_WEEK_EPOCH_BASED,
   DAY_MS,
   HALF_DAY,
   QUARTER_DAY,
   YEAR_MS,
 } = require('./constants');
+const {
+  calculateYearFromMs,
+  calculatePartialYearMS,
+  calculateDayOfYear,
+  calculateDayOfWeek,
+  caclulateEpochMS,
+  calculateIsLeapYear,
+} = require('./calculate');
 
 module.exports = class UTCDate {
   constructor(_date) {
+    this._cache = {};
     this._monthsIndex = MONTHS_INDEX;
     this._daysOfWeek = DAYS_OF_WEEK;
     this._originalDateValue = _date;
     if(!_date) {
-      this.epochMs = this.now();
+      this._cache.epochMs = this.now();
     } else if(Array.isArray(_date)) {
-      this.epochMs = caclulateEpochMS(_date);
+      const { isLeapYear, epochMs, month } = caclulateEpochMS(_date);
+      this._cache.epochMs = epochMs;
+      this._cache.month = month;
+      this._cache.isLeapYear = isLeapYear;
     } else if(typeof _date === 'number') {
-      this.epochMs = _date;
+      this._cache.epochMs = _date;
     }
-    this.isLeapYear = '';
-    // this._monthsIndex = MONTHS_CONSTANTS;
-    // this._daysOfWeek = DAYS_OF_WEEK;
 
+    this._setIsLeapYear();
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
   }
 
+  _setIsLeapYear() {
+    if(this._cache.isLeapYear === undefined) {
+      this._cache.isLeapYear = calculateIsLeapYear(this.getYear());
+    }
+    return this._cache.isLeapYear;
+  }
+
+  _getPartialYearMS() {
+    if(this._cache.partialYearMS === undefined) {
+      this._cache.partialYearMS = calculatePartialYearMS(this._cache.epochMs);
+    }
+    return this._cache.partialYearMS;
+  }
+
   valueOf() {
-    return this.epochMs;
+    return this._cache.epochMs;
   }
 
   toString() {
-    return 'this is a date'
+    return 'this is a date';
   }
 
   getEpochMS() {
-    return this.epochMs;
+    return this._cache.epochMs;
   }
 
   now() {
     return Date.now ? Date.now() : +(new Date());
   }
 
-  _getRemainingMs() {
-    return this.epochMs % YEAR_MS;
-  }
-
   getYear() {
-    return Math.floor(1970 + Math.floor(this.epochMs / YEAR_MS));
+    if(this._cache.year === undefined) {
+      this._cache.year = calculateYearFromMs(this._cache.epochMs);
+    }
+    return this._cache.year;
   }
 
   getDayOfYear() {
-    return Math.floor(this._getRemainingMs() / DAY_MS);
+    if(this._cache.dayOfYear === undefined) {
+      this._cache.dayOfYear = calculateDayOfYear(this._getPartialYearMS());
+    }
+    return this._cache.dayOfYear;
   }
 
   getMonth() {
-    return getMonth(this.getDayOfYear(), this.isLeapYear);
+    if(this._cache.month === undefined) {
+      this._cache.month = getMonthFromDayOfYear(this.getDayOfYear(), this._cache.isLeapYear);
+    }
+    return this._cache.month;
   }
 
   getDayOfWeek() {
-    return DAYS_OF_WEEK_2[Math.floor(this.epochMs / DAY_MS) % 7];
+    if(this._cache.dayOfWeek === undefined) {
+      this._cache.dayOfWeek = calculateDayOfWeek(this._cache.epochMs);
+    }
+    return this._cache.dayOfWeek;
   }
 
   // getDayOfWeek(type = type = this._TYPES.LONG) {
@@ -117,4 +149,4 @@ module.exports = class UTCDate {
   //       return `${this.getDayOfWeek(this._TYPES.LONG)} ${this.dayOfMonth()} ${this.getMonthName(this._TYPES.LONG)} ${this.getYear()} ${this.getHours()}:${this.getMinutes()}${this.getHours() >= 12 ? 'pm' : 'am'}`;
   //   }
   // }
-}
+};

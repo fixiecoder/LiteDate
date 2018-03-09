@@ -1,7 +1,7 @@
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
-  DAYS_OF_WEEK_2,
+  DAYS_OF_WEEK_EPOCH_BASED,
   DAY_MS,
   HALF_DAY,
   QUARTER_DAY,
@@ -51,7 +51,7 @@ function getOrdinal(number) {
   }
 }
 
-function getMonth(dayOfYear, isLeapYear) {
+function getMonthFromDayOfYear(dayOfYear, isLeapYear) {
   const leapYearAddition = isLeapYear ? 1 : 0;
   if(dayOfYear <= 31) {
     return MONTHS_INDEX[0]; // jan
@@ -193,56 +193,16 @@ function format(formatString = '') {
 }
 
 function getMonthFromNumber(monthNumber) {
-  if(monthNumber < 0) {
+  if(monthNumber < 1) {
     throw new Error('months are not zero indexed, please use the correct month number e.g. for January use 1');
   }
   return MONTHS_INDEX[monthNumber - 1];
 }
 
-function caclulateEpochMS(dateArray = []) {
-  let epochMs = 0;
-  let isLeapYear = false;
-  if(dateArray[0]) {
-    const mod = dateArray[0] % 4;
-    isLeapYear = !mod;
-    epochMs = ((dateArray[0] - 1970) * DAY_MS * 365.25) + HALF_DAY;
-    if(mod) {
-      epochMs -= mod * QUARTER_DAY;
-    } else {
-      epochMs -= DAY_MS;
-    }
-
-  } else {
-    // if we don't have any element
-    return this.now();
-  }
-
-  if(dateArray[1]) {
-    const leapYearAddition = isLeapYear && dateArray[1] > 1 ? 1 : 0;
-    const month = getMonthFromNumber(dateArray[1]);
-    epochMs += DAY_MS * (month.dayOfYearIndex + leapYearAddition);
-  }
-
-  if(dateArray[2]) {
-    epochMs += (dateArray[2] - 1) * DAY_MS;
-  }
-
-  if(dateArray[3]) {
-    epochMs += dateArray[3] * HOUR_MS;
-  }
-
-  if(dateArray[4]) {
-    epochMs += dateArray[4] * MINUTE_MS;
-  }
-
-  return epochMs;
-}
-
 module.exports = {
   prefixUnitZero,
   getOrdinal,
-  getMonth,
+  getMonthFromDayOfYear,
   format,
   getMonthFromNumber,
-  caclulateEpochMS,
 };
