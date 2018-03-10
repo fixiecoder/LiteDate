@@ -63,17 +63,30 @@ describe('calculateYearFromMs', () => {
 
 describe.only('calculateYearAndRemainder', () => {
   it('should work', () => {
-    const result = calculateYearAndRemainder(startOf2018);
-    assert.equal(result.remainder, 0);
+    const expectedRemainder = 3888000000; // 45 days
+    const result = calculateYearAndRemainder(startOf2018 + expectedRemainder);
+    assert.equal(result.remainder, expectedRemainder);
   });
 
-  it('should work', () => {
-    const wholeYears = ((1996 - 1970) * YEAR_MS_NO_LEAP) + (DAY_MS * 6);
-    const expected = lastSecondOf1996 - wholeYears - DAY_MS;
-    const result = calculateYearAndRemainder(lastSecondOf1996);
-    console.log('================');
-    console.log('result', result);
-    console.log('expect', expected);
-    assert.equal(result.remainder, expected);
+  it('should work 2', () => {
+    const expectedRemainder = 3888000000 * 2; // 90 days
+    const result = calculateYearAndRemainder(startOf1980 + expectedRemainder);
+    assert.equal(result.remainder, expectedRemainder);
   });
+
+  it('should work 3', () => {
+    const expectedRemainder = 3888000000 * 6; // 270 days
+    const result = calculateYearAndRemainder(startOf1981 + expectedRemainder);
+    assert.equal(result.remainder, expectedRemainder);
+  });
+
+  // it('should work', () => {
+  //   const wholeYears = ((1996 - 1970) * YEAR_MS_NO_LEAP) + (DAY_MS * 6);
+  //   const expected = lastSecondOf1996 - wholeYears - DAY_MS;
+  //   const result = calculateYearAndRemainder(lastSecondOf1996);
+  //   console.log('================');
+  //   console.log('result', result);
+  //   console.log('expect', expected);
+  //   assert.equal(result.remainder, expected);
+  // });
 });

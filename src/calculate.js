@@ -8,7 +8,7 @@ const {
   YEAR_MS,
   HOUR_MS,
   MINUTE_MS,
-  YEAR_MS_SHORT,
+  YEAR_NO_LEAP_MS,
 } = require('./constants');
 const { getMonthFromNumber } = require('./methods');
 
@@ -32,30 +32,36 @@ console.log(new Date(yearsMs));
 */
 
 function calculateYearAndRemainder(epochMs) {
-  const initialYearVal = (epochMs / YEAR_MS_SHORT);
+  const initialYearVal = (epochMs / YEAR_NO_LEAP_MS);
   const numberOfLeapDays = initialYearVal / 4;
   let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
-  let year = (epochMs - leapMs) / YEAR_MS_SHORT;
+  let year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
+  let remainderOffset = 0;
   if(Math.floor(year) % 4 === 3) {
     leapMs += DAY_MS;
-    year = (epochMs - leapMs) / YEAR_MS_SHORT;
+    remainderOffset = DAY_MS;
+    year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
   }
-  const remainder = epochMs - ((year * YEAR_MS_SHORT) + leapMs);
+  year = Math.floor(year);
+  const wholeYears = (year * YEAR_NO_LEAP_MS) + (DAY_MS * Math.floor(year / 4));
+  year += 1970;
 
-  year = Math.floor(year + 1970);
+  const remainder = epochMs - wholeYears - remainderOffset;
+
+  // console.warn('R', epochMs)
 
 
   return { year, remainder };
 }
 
 function calculateYearFromMs(epochMs) {
-  const initialYearVal = (epochMs / YEAR_MS_SHORT);
+  const initialYearVal = (epochMs / YEAR_NO_LEAP_MS);
   const numberOfLeapDays = initialYearVal / 4;
   let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
-  let year = (epochMs - leapMs) / YEAR_MS_SHORT;
+  let year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
   if(Math.floor(year) % 4 === 3) {
     leapMs += DAY_MS;
-    year = (epochMs - leapMs) / YEAR_MS_SHORT;
+    year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
   }
 
   return Math.floor(year + 1970);
