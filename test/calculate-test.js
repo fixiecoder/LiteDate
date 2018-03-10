@@ -1,6 +1,7 @@
 const { assert } = require('chai');
 const {
   calculateYearFromMs,
+  calculateYearAndRemainder,
   calculatePartialYearMS,
   calculateDayOfYear,
   calculateDayOfWeek,
@@ -60,19 +61,19 @@ describe('calculateYearFromMs', () => {
   });
 });
 
-describe('calculatePartialYearMS', () => {
+describe.only('calculateYearAndRemainder', () => {
   it('should work', () => {
-    const result = calculatePartialYearMS(startOf2018);
-    assert.equal(result, 0);
+    const result = calculateYearAndRemainder(startOf2018);
+    assert.equal(result.remainder, 0);
   });
 
   it('should work', () => {
-    const wholeYears = ((1996 - 1970) * YEAR_MS_NO_LEAP) + (DAY_MS * 7);
-    const expected = lastSecondOf1996 - wholeYears;
-    const result = calculatePartialYearMS(lastSecondOf1996);
-    console.log('wholeYears', wholeYears);
-    console.log('EXPECT', expected);
+    const wholeYears = ((1996 - 1970) * YEAR_MS_NO_LEAP) + (DAY_MS * 6);
+    const expected = lastSecondOf1996 - wholeYears - DAY_MS;
+    const result = calculateYearAndRemainder(lastSecondOf1996);
+    console.log('================');
     console.log('result', result);
-    assert.equal(result, expected);
+    console.log('expect', expected);
+    assert.equal(result.remainder, expected);
   });
 });

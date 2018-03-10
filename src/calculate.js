@@ -31,6 +31,23 @@ console.log(new Date(yearsMs));
 
 */
 
+function calculateYearAndRemainder(epochMs) {
+  const initialYearVal = (epochMs / YEAR_MS_SHORT);
+  const numberOfLeapDays = initialYearVal / 4;
+  let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
+  let year = (epochMs - leapMs) / YEAR_MS_SHORT;
+  if(Math.floor(year) % 4 === 3) {
+    leapMs += DAY_MS;
+    year = (epochMs - leapMs) / YEAR_MS_SHORT;
+  }
+  const remainder = epochMs - ((year * YEAR_MS_SHORT) + leapMs);
+
+  year = Math.floor(year + 1970);
+
+
+  return { year, remainder };
+}
+
 function calculateYearFromMs(epochMs) {
   const initialYearVal = (epochMs / YEAR_MS_SHORT);
   const numberOfLeapDays = initialYearVal / 4;
@@ -108,5 +125,6 @@ module.exports = {
   calculateDayOfWeek,
   caclulateEpochMS,
   calculateIsLeapYear,
+  calculateYearAndRemainder,
 };
 
