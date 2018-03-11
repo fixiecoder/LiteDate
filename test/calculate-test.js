@@ -9,6 +9,8 @@ const {
   calculateIsLeapYear
 } = require('../src/calculate');
 
+const testValues = require('./test-values');
+
 const lastSecondOf2017 = 1514764799000;
 const lastSecondOf1980 = 347155199000;
 const lastSecondOf1996 = 852076799000;
@@ -19,6 +21,34 @@ const startOf2020 = 1577836800000;
 const afterFebInLeapYear1980 = 326073599000;
 const DAY_MS = 1000 * 60 * 60 * 24;
 const YEAR_MS_NO_LEAP = DAY_MS * 365;
+
+
+describe.only('calculateYearAndRemainder', () => {
+  it('start of leap year', () => {
+    testValues.leap.start.forEach(values => {
+      const result = calculateYearAndRemainder(values.epoch);
+      assert.equal(result.year, values.year);
+    });
+  });
+  it('end of leap year', () => {
+    testValues.leap.end.forEach(values => {
+      const result = calculateYearAndRemainder(values.epoch);
+      assert.equal(result.year, values.year);
+    });
+  });
+  it('beforeLeapDay of leap year', () => {
+    testValues.leap.beforeLeapDay.forEach(values => {
+      const result = calculateYearAndRemainder(values.epoch);
+      assert.equal(result.year, values.year);
+    });
+  });
+  it('afterLeapDay of leap year', () => {
+    testValues.leap.afterLeapDay.forEach(values => {
+      const result = calculateYearAndRemainder(values.epoch);
+      assert.equal(result.year, values.year);
+    });
+  });
+});
 
 describe('calculateYearFromMs', () => {
   it('should return the correct year when given an epoch that is midnight on the 1st of January of a year', () => {
@@ -61,7 +91,7 @@ describe('calculateYearFromMs', () => {
   });
 });
 
-describe.only('calculateYearAndRemainder', () => {
+describe('calculateYearAndRemainder', () => {
   it('should work', () => {
     const expectedRemainder = 3888000000; // 45 days
     const result = calculateYearAndRemainder(startOf2018 + expectedRemainder);
