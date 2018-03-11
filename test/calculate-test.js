@@ -22,8 +22,48 @@ const afterFebInLeapYear1980 = 326073599000;
 const DAY_MS = 1000 * 60 * 60 * 24;
 const YEAR_MS_NO_LEAP = DAY_MS * 365;
 
+describe.only('calculateYearAndRemainder', () => {
+  describe('leap years', () => {
+    testValues.leap.years.forEach(year => {
+      testValues.leap.remains.forEach(remain => {
+        const r = remain.value;
+        const y = year.year;
+        const mo = remain.month;
+        const d = remain.date;
+        const h = remain.hour;
+        const mi = remain.minute;
+        const s = remain.second;
+        it(`#${remain.id} - should return remainder: ${r} and year: ${y} when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}`, () => {
+          const result = calculateYearAndRemainder(year.epoch + r);
+          assert.deepEqual(result, { year: y, remainder: r });
+        });
+      });
+    });
+  });
+});
 
 describe.only('calculateYearAndRemainder', () => {
+  describe('non leap years', () => {
+    testValues.noLeap.years.forEach(year => {
+      testValues.noLeap.remains.forEach(remain => {
+        const r = remain.value;
+        const y = year.year;
+        const mo = remain.month;
+        const d = remain.date;
+        const h = remain.hour;
+        const mi = remain.minute;
+        const s = remain.second;
+        // it(`#${remain.id} - should return remainder: ${r} and year: ${y} when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}`, () => {
+        //   const result = calculateYearAndRemainder(year.epoch + r);
+        //   assert.deepEqual(result, { year: y, remainder: r });
+        // });
+      });
+    });
+  });
+
+});
+
+describe('calculateYearAndRemainder', () => {
   it('start of leap year', () => {
     testValues.leap.start.forEach(values => {
       const result = calculateYearAndRemainder(values.epoch);

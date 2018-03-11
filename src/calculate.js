@@ -32,26 +32,46 @@ console.log(new Date(yearsMs));
 */
 
 function calculateYearAndRemainder(epochMs) {
-  const initialYearVal = (epochMs / YEAR_NO_LEAP_MS);
-  const numberOfLeapDays = initialYearVal / 4;
-  let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
-  let year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
-  let remainderOffset = 0;
-  if(Math.floor(year) % 4 === 3) {
-    leapMs += DAY_MS;
-    remainderOffset = DAY_MS;
-    year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
+  console.log('AHHH')
+  let a1 = 0;
+  const leap = -2;
+  let year = 1970;
+  while (a1 < epochMs) {
+    const LEAP_DAY = leap % 4 === 0 ? DAY_MS : 0;
+    a1 += YEAR_NO_LEAP_MS + LEAP_DAY;
+    if(a1 <= epochMs) {
+      year += 1;
+    }
   }
-  year = Math.floor(year);
-  const wholeYears = (year * YEAR_NO_LEAP_MS) + (DAY_MS * Math.floor(year / 4));
-  year += 1970;
 
-  const remainder = epochMs - wholeYears - remainderOffset;
+  console.log('YEAR', year);
 
-  // console.warn('R', epochMs)
+  return { year };
 
 
-  return { year, remainder };
+  // const initialYearVal = (epochMs / YEAR_NO_LEAP_MS);
+  // const numberOfLeapDays = initialYearVal / 4;
+  // console.log('DAYS', numberOfLeapDays);
+  // let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
+  // let year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
+  // let remainderOffset = 0;
+  // const mod = Math.floor(year) % 4;
+  // console.log('MOD', mod)
+  // if(mod === 3) {
+  //   // console.log("HERERERERERERE")
+  //   // leapMs += DAY_MS;
+  //   // remainderOffset = DAY_MS;
+  //   // year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
+  // } else if(mod === 1) {
+  // }
+  // year = Math.floor(year);
+  // console.log('DAYS2', Math.floor(year / 4))
+  // const wholeYears = (year * YEAR_NO_LEAP_MS) + (DAY_MS * Math.floor(year / 4));
+  // year += 1970;
+
+  // const remainder = epochMs - wholeYears - remainderOffset;
+
+  // return { year, remainder };
 }
 
 function calculateYearFromMs(epochMs) {
