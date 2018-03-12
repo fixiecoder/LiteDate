@@ -1,7 +1,7 @@
 {
   "name": "utc-date",
   "version": "0.0.1",
-  "description": "Simple lightweight date object tool that allows data formatting and manipulation",
+  "description": "Simple lightweight UTC date object tool that allows date formatting and manipulation",
   "main": "src/index.js",
   "scripts": {
     "test": "nyc mocha --recursive --reporter landing",
