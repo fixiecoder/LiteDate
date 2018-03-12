@@ -4,7 +4,7 @@
   "description": "Simple lightweight date object tool that allows data formatting and manipulation",
   "main": "src/index.js",
   "scripts": {
-    "test": "nyc mocha --recursive --reporter dot",
+    "test": "nyc mocha --recursive --reporter landing",
     "build": "export mode=development && webpack --watch",
     "build:dev": "npm run build",
     "build:prod": "export mode=production && webpack",
@@ -13,7 +13,7 @@
   "browser": "./dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fixiecoder/lite-date.git"
+    "url": "git+https://github.com/fixiecoder/utc-date.git"
   },
   "keywords": [
     "date",
@@ -28,9 +28,9 @@
   "author": "fixiecoder",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fixiecoder/lite-date/issues"
+    "url": "https://github.com/fixiecoder/utc-date/issues"
   },
-  "homepage": "https://github.com/fixiecoder/lite-date#readme",
+  "homepage": "https://github.com/fixiecoder/utc-date#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "chai": "^4.1.2",

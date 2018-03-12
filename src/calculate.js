@@ -13,7 +13,7 @@ const {
 } = require('./constants');
 const { getMonthFromNumber } = require('./methods');
 
-function calculateYearAndRemainder(epochMs) {
+function calculateYearAndPartialMs(epochMs) {
   let year = 1970;
   const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
   const count = Math.round(epochMs / fourYears);
@@ -21,29 +21,12 @@ function calculateYearAndRemainder(epochMs) {
   const epochNoLeap = epochMs - totalLeapDayMs;
   year = Math.floor(epochNoLeap / YEAR_NO_LEAP_MS);
   const wholeYears = (year * YEAR_NO_LEAP_MS) + totalLeapDayMs;
-  let remainder = epochMs - wholeYears;
+  let partialYearMs = epochMs - wholeYears;
   year += 1970;
-  if(year % 4 === 0 && remainder > 3600000 * count) { // TODO: Work out the cut off for the remainder greater than
-    remainder += DAY_MS;
+  if(year % 4 === 0 && partialYearMs > 3600000 * count) { // TODO: Work out the cut off for the partialYearMs greater than
+    partialYearMs += DAY_MS;
   }
-  return { year, remainder };
-}
-
-function calculateYearFromMs(epochMs) {
-  const initialYearVal = (epochMs / YEAR_NO_LEAP_MS);
-  const numberOfLeapDays = initialYearVal / 4;
-  let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
-  let year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
-  if(Math.floor(year) % 4 === 3) {
-    leapMs += DAY_MS;
-    year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
-  }
-
-  return Math.floor(year + 1970);
-}
-
-function calculatePartialYearMS(epochMs) {
-  return epochMs % YEAR_MS;
+  return { year, partialYearMs };
 }
 
 function calculateDayOfYear(partialYearMS) {
@@ -100,12 +83,10 @@ function calculateIsLeapYear(year) {
 }
 
 module.exports = {
-  calculateYearFromMs,
-  calculatePartialYearMS,
   calculateDayOfYear,
   calculateDayOfWeek,
   caclulateEpochMS,
   calculateIsLeapYear,
-  calculateYearAndRemainder,
+  calculateYearAndPartialMs,
 };
 

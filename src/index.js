@@ -9,8 +9,7 @@ const {
   YEAR_MS,
 } = require('./constants');
 const {
-  calculateYearFromMs,
-  calculatePartialYearMS,
+  calculateYearAndPartialMs,
   calculateDayOfYear,
   calculateDayOfWeek,
   caclulateEpochMS,
@@ -45,9 +44,15 @@ module.exports = class UTCDate {
     return this._cache.isLeapYear;
   }
 
+  _setYearAndPartialYearMS() {
+    const { year, partialYearMs } = calculateYearAndPartialMs(this._cache.epochMs);
+    this._cache.partialYearMS = partialYearMs;
+    this._cache.year = year;
+  }
+
   _getPartialYearMS() {
     if(this._cache.partialYearMS === undefined) {
-      this._cache.partialYearMS = calculatePartialYearMS(this._cache.epochMs);
+      this._setYearAndPartialYearMS();
     }
     return this._cache.partialYearMS;
   }
@@ -70,7 +75,7 @@ module.exports = class UTCDate {
 
   getYear() {
     if(this._cache.year === undefined) {
-      this._cache.year = calculateYearFromMs(this._cache.epochMs);
+      this._setYearAndPartialYearMS();
     }
     return this._cache.year;
   }
