@@ -4,7 +4,7 @@
   "description": "Simple lightweight date object tool that allows data formatting and manipulation",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --recursive --reporter dot",
+    "test": "nyc mocha --recursive --reporter dot",
     "build": "export mode=development && webpack --watch",
     "build:dev": "npm run build",
     "build:prod": "export mode=production && webpack",
@@ -37,7 +37,11 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^2.0.0",
     "mocha": "^5.0.3",
+    "nyc": "^11.4.1",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10"
+  },
+  "nyc": {
+    "include": ["src/**/*.js"]
   }
 }
