@@ -8,6 +8,7 @@ const {
   YEAR_MS,
   HOUR_MS,
   MINUTE_MS,
+  SECOND_MS,
   YEAR_NO_LEAP_MS,
   YEAR_LEAP_MS,
 } = require('./constants');
@@ -39,16 +40,25 @@ function calculateDayOfWeek(epochMS) {
 
 function caclulateEpochMS(dateArray = []) {
   let epochMs = 0;
+  let wholeYears = 0;
+  let partialYear = 0;
   let isLeapYear = false;
+  let leapYearCount = 0;
   if(dateArray[0]) {
+
     const mod = dateArray[0] % 4;
     isLeapYear = !mod;
-    epochMs = ((dateArray[0] - 1970) * DAY_MS * 365.25) + HALF_DAY;
-    if(mod) {
-      epochMs -= mod * QUARTER_DAY;
-    } else {
-      epochMs -= DAY_MS;
-    }
+    const yearsAfterEpoch = dateArray[0] - 1970;
+    leapYearCount = Math.floor(yearsAfterEpoch / 4);
+    const leapMs = leapYearCount * DAY_MS;
+    wholeYears = (yearsAfterEpoch * (DAY_MS * 365)) + (leapMs);
+
+    // epochMs -= DAY_MS;
+    // if(mod) {
+    //   epochMs -= mod * QUARTER_DAY;
+    // } else {
+    //   epochMs -= DAY_MS;
+    // }
 
   } else {
     // if we don't have any element
@@ -60,20 +70,30 @@ function caclulateEpochMS(dateArray = []) {
   if(dateArray[1]) {
     const leapYearAddition = isLeapYear && dateArray[1] > 1 ? 1 : 0;
     month = getMonthFromNumber(dateArray[1]);
-    epochMs += DAY_MS * (month.dayOfYearIndex + leapYearAddition);
+    partialYear += DAY_MS * (month.dayOfYearIndex + leapYearAddition);
   }
 
   if(dateArray[2]) {
-    epochMs += (dateArray[2] - 1) * DAY_MS;
+    if(dateArray[1] > 1 && dateArray[2] >= 28§§) {
+      epochMs -= DAY_MS;
+
+    }
+    partialYear += (dateArray[2] - 1) * DAY_MS;
   }
 
   if(dateArray[3]) {
-    epochMs += dateArray[3] * HOUR_MS;
+    partialYear += dateArray[3] * HOUR_MS;
   }
 
   if(dateArray[4]) {
-    epochMs += dateArray[4] * MINUTE_MS;
+    partialYear += dateArray[4] * MINUTE_MS;
   }
+
+  if(dateArray[5]) {
+    partialYear += dateArray[5] * SECOND_MS;
+  }
+
+  // if(partialYear >)
 
   return { isLeapYear, epochMs, month };
 }
