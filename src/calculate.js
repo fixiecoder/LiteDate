@@ -9,69 +9,24 @@ const {
   HOUR_MS,
   MINUTE_MS,
   YEAR_NO_LEAP_MS,
+  YEAR_LEAP_MS,
 } = require('./constants');
 const { getMonthFromNumber } = require('./methods');
 
-
-/*
-
-let year = 2020;
-const DAY_MS = 86400000;
-const QUARTER_DAY = 21600000;
-const HALF_DAY = 43200000;
-let mod = year % 4;
-let yearsMs = ((year - 1970) * DAY_MS * 365.25) + HALF_DAY;
-
-if(mod) {
-  yearsMs -= mod * QUARTER_DAY;
-} else {
-  yearsMs -= DAY_MS;
-}
-console.log(new Date(yearsMs));
-
-*/
-
 function calculateYearAndRemainder(epochMs) {
-  console.log('AHHH')
-  let a1 = 0;
-  const leap = -2;
   let year = 1970;
-  while (a1 < epochMs) {
-    const LEAP_DAY = leap % 4 === 0 ? DAY_MS : 0;
-    a1 += YEAR_NO_LEAP_MS + LEAP_DAY;
-    if(a1 <= epochMs) {
-      year += 1;
-    }
+  const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
+  const count = Math.round(epochMs / fourYears);
+  const totalLeapDayMs = (count * DAY_MS);
+  const epochNoLeap = epochMs - totalLeapDayMs;
+  year = Math.floor(epochNoLeap / YEAR_NO_LEAP_MS);
+  const wholeYears = (year * YEAR_NO_LEAP_MS) + totalLeapDayMs;
+  let remainder = epochMs - wholeYears;
+  year += 1970;
+  if(year % 4 === 0 && remainder > 3600000 * count) { // TODO: Work out the cut off for the remainder greater than
+    remainder += DAY_MS;
   }
-
-  console.log('YEAR', year);
-
-  return { year };
-
-
-  // const initialYearVal = (epochMs / YEAR_NO_LEAP_MS);
-  // const numberOfLeapDays = initialYearVal / 4;
-  // console.log('DAYS', numberOfLeapDays);
-  // let leapMs = Math.floor(numberOfLeapDays) * DAY_MS;
-  // let year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
-  // let remainderOffset = 0;
-  // const mod = Math.floor(year) % 4;
-  // console.log('MOD', mod)
-  // if(mod === 3) {
-  //   // console.log("HERERERERERERE")
-  //   // leapMs += DAY_MS;
-  //   // remainderOffset = DAY_MS;
-  //   // year = (epochMs - leapMs) / YEAR_NO_LEAP_MS;
-  // } else if(mod === 1) {
-  // }
-  // year = Math.floor(year);
-  // console.log('DAYS2', Math.floor(year / 4))
-  // const wholeYears = (year * YEAR_NO_LEAP_MS) + (DAY_MS * Math.floor(year / 4));
-  // year += 1970;
-
-  // const remainder = epochMs - wholeYears - remainderOffset;
-
-  // return { year, remainder };
+  return { year, remainder };
 }
 
 function calculateYearFromMs(epochMs) {

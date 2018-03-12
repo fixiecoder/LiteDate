@@ -30,8 +30,9 @@ const HOUR_MS = 3600000;
 const DAY_MS = 86400000;
 const HALF_DAY = 43200000;
 const QUARTER_DAY = 21600000;
-const YEAR_MS = 31557600000;
-const YEAR_NO_LEAP_MS = 31536000000;
+const YEAR_MS = DAY_MS * 365.5;
+const YEAR_NO_LEAP_MS = DAY_MS * 365;
+const YEAR_LEAP_MS = DAY_MS * 366;
 
 module.exports = {
   MONTHS_INDEX,
@@ -43,5 +44,6 @@ module.exports = {
   HALF_DAY,
   QUARTER_DAY,
   YEAR_MS,
+  YEAR_LEAP_MS,
   YEAR_NO_LEAP_MS,
 };
