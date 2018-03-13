@@ -2,6 +2,7 @@ const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
   DAYS_OF_WEEK_EPOCH_BASED,
+  FEB_29_LAST_MS_PARTIAL,
   DAY_MS,
   HALF_DAY,
   QUARTER_DAY,
@@ -39,27 +40,20 @@ function calculateDayOfWeek(epochMS) {
 }
 
 function caclulateEpochMS(dateArray = []) {
-  let epochMs = 0;
+  // let epochMs = 0;
   let wholeYears = 0;
   let partialYear = 0;
   let isLeapYear = false;
   let leapYearCount = 0;
+  let leapMs = 0;
   if(dateArray[0]) {
 
     const mod = dateArray[0] % 4;
     isLeapYear = !mod;
     const yearsAfterEpoch = dateArray[0] - 1970;
     leapYearCount = Math.floor(yearsAfterEpoch / 4);
-    const leapMs = leapYearCount * DAY_MS;
+    leapMs = leapYearCount * DAY_MS;
     wholeYears = (yearsAfterEpoch * (DAY_MS * 365)) + (leapMs);
-
-    // epochMs -= DAY_MS;
-    // if(mod) {
-    //   epochMs -= mod * QUARTER_DAY;
-    // } else {
-    //   epochMs -= DAY_MS;
-    // }
-
   } else {
     // if we don't have any element
     return this.now();
@@ -74,10 +68,6 @@ function caclulateEpochMS(dateArray = []) {
   }
 
   if(dateArray[2]) {
-    if(dateArray[1] > 1 && dateArray[2] >= 28§§) {
-      epochMs -= DAY_MS;
-
-    }
     partialYear += (dateArray[2] - 1) * DAY_MS;
   }
 
@@ -93,7 +83,15 @@ function caclulateEpochMS(dateArray = []) {
     partialYear += dateArray[5] * SECOND_MS;
   }
 
-  // if(partialYear >)
+  if(dateArray[6]) {
+    partialYear += dateArray[6];
+  }
+
+  if(isLeapYear && partialYear > 31 * DAY_MS && partialYear <= FEB_29_LAST_MS_PARTIAL && dateArray[1] === 2) {
+    partialYear -= DAY_MS;
+  }
+
+  const epochMs = partialYear + wholeYears;
 
   return { isLeapYear, epochMs, month };
 }
