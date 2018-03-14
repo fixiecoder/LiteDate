@@ -20,7 +20,7 @@ describe('caclulateEpochMS', () => {
 
   describe('leap years', () => {
     testValues.leap.years.forEach(year => {
-      describe('when only year passed', () => {
+      describe('when only year passed in', () => {
         it(`should return ${year.epoch} when passed only the year ${year.year}`, () => {
           const array = [
             year.year,
@@ -31,7 +31,7 @@ describe('caclulateEpochMS', () => {
         });
       });
 
-      testValues.leap.remains.forEach(partial => {
+      testValues.leap.partial.forEach(partial => {
         it(`#${partial.id} year: ${year.year}`, () => {
           const array = [
             year.year,
@@ -52,7 +52,7 @@ describe('caclulateEpochMS', () => {
 
   describe('non leap years', () => {
     testValues.noLeap.years.forEach(year => {
-      describe('when only year passed', () => {
+      describe('when only year passed in', () => {
         it(`should return ${year.epoch} when passed only the year ${year.year}`, () => {
           const array = [
             year.year,
@@ -63,7 +63,7 @@ describe('caclulateEpochMS', () => {
         });
       });
 
-      testValues.noLeap.remains.forEach(partial => {
+      testValues.noLeap.partial.forEach(partial => {
         it(`#${partial.id} year: ${year.year}`, () => {
           const array = [
             year.year,
@@ -78,6 +78,25 @@ describe('caclulateEpochMS', () => {
           const expect = year.epoch + partial.value;
           assert.equal(result.epochMs, expect);
         });
+      });
+    });
+  });
+
+  describe('non leap years', () => {
+    testValues.mixedValues.forEach(date => {
+      it(`#${date.id} year: ${date.year}`, () => {
+        const array = [
+          date.year,
+          date.month,
+          date.date,
+          date.hour,
+          date.minute,
+          date.second,
+          date.ms || 0
+        ];
+        const result = caclulateEpochMS(array);
+        const expect = date.epoch;
+        assert.equal(result.epochMs, expect);
       });
     });
   });

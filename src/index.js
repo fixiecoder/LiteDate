@@ -1,4 +1,4 @@
-const { prefixUnitZero, getOrdinal, getMonthFromDayOfYear } = require('./methods');
+const { prefixUnitZero, getOrdinal, getMonthFromDayOfYear, getMonthNumberFromDayOfYear } = require('./methods');
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
@@ -14,6 +14,7 @@ const {
   calculateDayOfWeek,
   caclulateEpochMS,
   calculateIsLeapYear,
+  calculateHour
 } = require('./calculate');
 
 module.exports = class UTCDate {
@@ -27,7 +28,13 @@ module.exports = class UTCDate {
     } else if(Array.isArray(_date)) {
       const { isLeapYear, epochMs, month } = caclulateEpochMS(_date);
       this._cache.epochMs = epochMs;
-      this._cache.month = month;
+      // this._cache.month = month;
+      this._cache.year = _date[0] || 1970;
+      this._cache.month = _date[1] || 1;
+      this._cache.date = _date[2] || 1;
+      this._cache.hour = _date[3] || 0;
+      this._cache.minute = _date[4] || 0;
+      this._cache.ms = _date[5] || 0;
       this._cache.isLeapYear = isLeapYear;
     } else if(typeof _date === 'number') {
       this._cache.epochMs = _date;
@@ -57,15 +64,23 @@ module.exports = class UTCDate {
     return this._cache.partialYearMS;
   }
 
+  toISOString() {
+    return `${this.getYear()}-${prefixUnitZero(this.getMonth())}-${prefixUnitZero(this.getDate())}T${prefixUnitZero(this.getHour())}:${prefixUnitZero(0)}:${prefixUnitZero(0)}Z`;
+  }
+
   valueOf() {
     return this._cache.epochMs;
   }
 
   toString() {
-    return 'this is a date';
+    return this.toISOString();
   }
 
   getEpochMS() {
+    return this._cache.epochMs;
+  }
+
+  getTime() {
     return this._cache.epochMs;
   }
 
@@ -89,9 +104,16 @@ module.exports = class UTCDate {
 
   getMonth() {
     if(this._cache.month === undefined) {
-      this._cache.month = getMonthFromDayOfYear(this.getDayOfYear(), this._cache.isLeapYear);
+      this._cache.month = getMonthNumberFromDayOfYear(this.getDayOfYear(), this._cache.isLeapYear);
     }
     return this._cache.month;
+  }
+
+  getDate() {
+    if(this._cache.date === undefined) {
+      this._cache.date = 1;
+    }
+    return this._cache.date;
   }
 
   getDayOfWeek() {
@@ -99,6 +121,13 @@ module.exports = class UTCDate {
       this._cache.dayOfWeek = calculateDayOfWeek(this._cache.epochMs);
     }
     return this._cache.dayOfWeek;
+  }
+
+  getHour() {
+    if(this._cache.hour === undefined) {
+      this._cache.hour = calculateHour(this._cache.epochMs);
+    }
+    return this._cache.hour;
   }
 
   // getDayOfWeek(type = type = this._TYPES.LONG) {

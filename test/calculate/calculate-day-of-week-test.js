@@ -4,7 +4,7 @@ const testValues = require('../test-values');
 
 describe('calculateDayOfWeek', () => {
   testValues.mixedValues.forEach(date => {
-    it('should pass', () => {
+    it(`${date.id} returns ${date.dayOfWeek} when given epoch ${date.epoch}`, () => {
       const result = calculateDayOfWeek(date.epoch);
       assert.equal(result, date.dayOfWeek);
     });

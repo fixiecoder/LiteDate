@@ -5,7 +5,7 @@ const testValues = require('../test-values');
 
 describe('calculateDayOfYear', () => {
   describe('leap years', () => {
-    testValues.leap.remains.forEach(partialYear => {
+    testValues.leap.partial.forEach(partialYear => {
       const expected = partialYear.dayOfYear;
       const y = 1970;
       const mo = prefixUnitZero(partialYear.month);
@@ -23,7 +23,7 @@ describe('calculateDayOfYear', () => {
   });
 
   describe('non leap years', () => {
-    testValues.noLeap.remains.forEach(partialYear => {
+    testValues.noLeap.partial.forEach(partialYear => {
       const expected = partialYear.dayOfYear;
       const y = 1970;
       const mo = prefixUnitZero(partialYear.month);

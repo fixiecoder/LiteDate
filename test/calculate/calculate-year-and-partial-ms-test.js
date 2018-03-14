@@ -6,7 +6,7 @@ const { prefixUnitZero } = require('../../src/methods');
 describe('calculateYearAndPartialMs', () => {
   describe('leap years', () => {
     testValues.leap.years.forEach(year => {
-      testValues.leap.remains.forEach(remain => {
+      testValues.leap.partial.forEach(remain => {
         const r = remain.value;
         const y = year.year;
         const mo = prefixUnitZero(remain.month);
@@ -27,7 +27,7 @@ describe('calculateYearAndPartialMs', () => {
 
   describe('non leap years', () => {
     testValues.noLeap.years.forEach(year => {
-      testValues.noLeap.remains.forEach(remain => {
+      testValues.noLeap.partial.forEach(remain => {
         const r = remain.value;
         const y = year.year;
         const mo = prefixUnitZero(remain.month);

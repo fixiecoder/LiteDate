@@ -97,11 +97,16 @@ function caclulateEpochMS(dateArray = []) {
 
   const epochMs = partialYear + wholeYears;
 
-  return { isLeapYear, epochMs, month };
+  return { isLeapYear, epochMs };
 }
 
 function calculateIsLeapYear(year) {
   return !(year % 4);
+}
+
+function calculateHour(epochMs) {
+  const dayRemainder = epochMs % DAY_MS;
+  return Math.floor(dayRemainder / HOUR_MS);
 }
 
 module.exports = {
@@ -110,5 +115,6 @@ module.exports = {
   caclulateEpochMS,
   calculateIsLeapYear,
   calculateYearAndPartialMs,
+  calculateHour,
 };
 

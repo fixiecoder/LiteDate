@@ -82,6 +82,37 @@ function getMonthFromDayOfYear(dayOfYear, isLeapYear) {
   }
 }
 
+function getMonthNumberFromDayOfYear(dayOfYear, isLeapYear) {
+  const leapYearAddition = isLeapYear ? 1 : 0;
+  if(dayOfYear <= 31) {
+    return 1; // jan
+  } else if(dayOfYear > 31 && dayOfYear <= 59 + leapYearAddition) {
+    return 2; // feb
+  } else if(dayOfYear > 59 + leapYearAddition && dayOfYear <= 90 + leapYearAddition) {
+    return 3; // mar
+  } else if(dayOfYear > 90 + leapYearAddition && dayOfYear <= 120 + leapYearAddition) {
+    return 4; // apr
+  } else if(dayOfYear > 120 + leapYearAddition && dayOfYear <= 151 + leapYearAddition) {
+    return 5; // may
+  } else if(dayOfYear > 151 + leapYearAddition && dayOfYear <= 181 + leapYearAddition) {
+    return 6; // jun
+  } else if(dayOfYear > 181 + leapYearAddition && dayOfYear <= 212 + leapYearAddition) {
+    return 7; // jul
+  } else if(dayOfYear > 212 + leapYearAddition && dayOfYear <= 243 + leapYearAddition) {
+    return 8; // aug
+  } else if(dayOfYear > 243 + leapYearAddition && dayOfYear <= 273 + leapYearAddition) {
+    return 9; // sept
+  } else if(dayOfYear > 273 + leapYearAddition && dayOfYear <= 304 + leapYearAddition) {
+    return 10; // oct
+  } else if(dayOfYear > 304 + leapYearAddition && dayOfYear <= 334 + leapYearAddition) {
+    return 11; // nov
+  } else if(dayOfYear > 334 + leapYearAddition && dayOfYear <= 365 + leapYearAddition) {
+    return 12; // nov
+  } else {
+    return 1;
+  }
+}
+
 
 /*
 
@@ -205,4 +236,5 @@ module.exports = {
   getMonthFromDayOfYear,
   format,
   getMonthFromNumber,
+  getMonthNumberFromDayOfYear,
 };
