@@ -40,15 +40,15 @@ function calculateDayOfWeek(epochMS) {
 }
 
 function caclulateEpochMS(dateArray = []) {
-  // let epochMs = 0;
   let wholeYears = 0;
   let partialYear = 0;
   let isLeapYear = false;
   let leapYearCount = 0;
   let leapMs = 0;
+  let mod;
   if(dateArray[0]) {
 
-    const mod = dateArray[0] % 4;
+    mod = dateArray[0] % 4;
     isLeapYear = !mod;
     const yearsAfterEpoch = dateArray[0] - 1970;
     leapYearCount = Math.floor(yearsAfterEpoch / 4);
@@ -56,7 +56,7 @@ function caclulateEpochMS(dateArray = []) {
     wholeYears = (yearsAfterEpoch * (DAY_MS * 365)) + (leapMs);
   } else {
     // if we don't have any element
-    return this.now();
+    return Date.now();
   }
 
   let month;
@@ -89,6 +89,10 @@ function caclulateEpochMS(dateArray = []) {
 
   if(isLeapYear && partialYear > 31 * DAY_MS && partialYear <= FEB_29_LAST_MS_PARTIAL && dateArray[1] === 2) {
     partialYear -= DAY_MS;
+  }
+
+  if(!isLeapYear && mod === 1) {
+    partialYear += DAY_MS;
   }
 
   const epochMs = partialYear + wholeYears;

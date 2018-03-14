@@ -23,7 +23,7 @@ const DAYS_OF_WEEK = [
   { long: 'Saturday', short: 'Sat', day: 6 },
 ];
 
-const DAYS_OF_WEEK_EPOCH_BASED = ['THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY'];
+const DAYS_OF_WEEK_EPOCH_BASED = [4, 5, 6, 0, 1, 2, 3];
 
 const SECOND_MS = 1000;
 const MINUTE_MS = 60000;

@@ -4,14 +4,6 @@ const { calculateDayOfYear } = require('../../src/calculate');
 const testValues = require('../test-values');
 
 describe('calculateDayOfYear', () => {
-  describe('empty array', () => {
-    it('should return result of Date.now() when given empty array', () => {
-      const result = calculateDayOfYear([]);
-      const expected = 0;
-      assert.equal(result, expected);
-    });
-  });
-
   describe('leap years', () => {
     testValues.leap.remains.forEach(partialYear => {
       const expected = partialYear.dayOfYear;

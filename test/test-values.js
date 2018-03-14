@@ -41,8 +41,12 @@ module.exports = {
       { id: 0, value: 0, month: 1, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 0 },
       { id: 2, value: 5047810000, month: 2, date: 28, hour: 10, minute: 10, second: 10, dayOfYear: 58 },
       { id: 3, value: 8335232000, month: 4, date: 7, hour: 11, minute: 20, second: 32, dayOfYear: 96 },
-      { id: 4, value: 18490158000, month: 8, date: 3, hour: 0, minute: 9, second: 19, dayOfYear: 214 },
+      { id: 4, value: 18490158000, month: 8, date: 3, hour: 0, minute: 9, second: 18, dayOfYear: 214 },
       { id: 5, value: 31535999000, month: 12, date: 31, hour: 23, minute: 59, second: 59, dayOfYear: 364 },
     ],
-  }
+  },
+  mixedValues: [
+    { epoch: 132504427000, year: 1974, month: 3, date: 14, hour: 14, minute: 47, second: 7, dayOfYear: 72, dayOfWeek: 4 },
+    { epoch: 526705329000, year: 1986, month: 9, date: 10, hour: 3, minute: 2, second: 9, dayOfYear: 253, dayOfWeek: 3 },
+  ]
 };
