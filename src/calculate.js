@@ -13,7 +13,6 @@ const {
   YEAR_NO_LEAP_MS,
   YEAR_LEAP_MS,
 } = require('./constants');
-const { getMonthFromNumber } = require('./methods');
 
 function calculateYearAndPartialMs(epochMs) {
   let year = 1970;
@@ -32,11 +31,18 @@ function calculateYearAndPartialMs(epochMs) {
 }
 
 function calculateDayOfYear(partialYearMS) {
-  return Math.floor(partialYearMS / DAY_MS);
+  return Math.floor(partialYearMS / DAY_MS) + 1;
 }
 
 function calculateDayOfWeek(epochMS) {
   return DAYS_OF_WEEK_EPOCH_BASED[Math.floor(epochMS / DAY_MS) % 7];
+}
+
+function getMonthFromNumber(monthNumber) {
+  if(monthNumber < 1) {
+    throw new Error('months are not zero indexed, please use the correct month number e.g. for January use 1');
+  }
+  return MONTHS_INDEX[monthNumber - 1];
 }
 
 function caclulateEpochMS(dateArray = []) {
@@ -109,6 +115,47 @@ function calculateHour(epochMs) {
   return Math.floor(dayRemainder / HOUR_MS);
 }
 
+function getMonthNumberFromDayOfYear(dayOfYear, isLeapYear) {
+  const leapYearAddition = isLeapYear ? 1 : 0;
+  if(dayOfYear <= 31) {
+    return 1; // jan
+  } else if(dayOfYear > 31 && dayOfYear <= 59 + leapYearAddition) {
+    return 2; // feb
+  } else if(dayOfYear > 59 + leapYearAddition && dayOfYear <= 90 + leapYearAddition) {
+    return 3; // mar
+  } else if(dayOfYear > 90 + leapYearAddition && dayOfYear <= 120 + leapYearAddition) {
+    return 4; // apr
+  } else if(dayOfYear > 120 + leapYearAddition && dayOfYear <= 151 + leapYearAddition) {
+    return 5; // may
+  } else if(dayOfYear > 151 + leapYearAddition && dayOfYear <= 181 + leapYearAddition) {
+    return 6; // jun
+  } else if(dayOfYear > 181 + leapYearAddition && dayOfYear <= 212 + leapYearAddition) {
+    return 7; // jul
+  } else if(dayOfYear > 212 + leapYearAddition && dayOfYear <= 243 + leapYearAddition) {
+    return 8; // aug
+  } else if(dayOfYear > 243 + leapYearAddition && dayOfYear <= 273 + leapYearAddition) {
+    return 9; // sept
+  } else if(dayOfYear > 273 + leapYearAddition && dayOfYear <= 304 + leapYearAddition) {
+    return 10; // oct
+  } else if(dayOfYear > 304 + leapYearAddition && dayOfYear <= 334 + leapYearAddition) {
+    return 11; // nov
+  } else if(dayOfYear > 334 + leapYearAddition && dayOfYear <= 365 + leapYearAddition) {
+    return 12; // nov
+  } else {
+    return 1;
+  }
+}
+
+
+function calculateDateFromPartialYear(dayOfYear, isLeapYear = false) {
+  const monthNumber = getMonthNumberFromDayOfYear(dayOfYear, isLeapYear);
+  let firstDayOfMonth = getMonthFromNumber(monthNumber).dayOfYearIndex;
+  if(isLeapYear && dayOfYear > 60) {
+    firstDayOfMonth += 1;
+  }
+  return dayOfYear - firstDayOfMonth;
+}
+
 module.exports = {
   calculateDayOfYear,
   calculateDayOfWeek,
@@ -116,5 +163,7 @@ module.exports = {
   calculateIsLeapYear,
   calculateYearAndPartialMs,
   calculateHour,
+  calculateDateFromPartialYear,
+  getMonthNumberFromDayOfYear
 };
 
