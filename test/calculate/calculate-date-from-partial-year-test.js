@@ -20,4 +20,13 @@ describe('calculateDateFromPartialYear', () => {
       });
     });
   });
+
+  describe('non leap years', () => {
+    testValues.noLeap.partial.forEach(partial => {
+      it(`#${partial.id} should return ${partial.date} when given partial day of year ${partial.dayOfYear} no second arg`, () => {
+        const result = calculateDateFromPartialYear(partial.dayOfYear);
+        assert.equal(result, partial.date);
+      });
+    });
+  });
 });
