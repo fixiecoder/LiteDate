@@ -25,8 +25,11 @@ function calculateYearAndPartialMs(epochMs) {
   const wholeYears = (year * YEAR_NO_LEAP_MS) + totalLeapDayMs;
   let partialYearMs = epochMs - wholeYears;
   year += 1970;
-  if(year % 4 === 0 && partialYearMs > 3600000 * count) { // TODO: Work out the cut off for the partialYearMs greater than
+  const isLeap = year % 4 === 0;
+  if(epochMs >= 0 && isLeap && partialYearMs > 3600000 * count) { // TODO: Work out the cut off for the partialYearMs greater than
     partialYearMs += DAY_MS;
+  } else if(epochMs < 0 && isLeap) {
+    console.log('less than zero and leap')
   }
   return { year, partialYearMs };
 }
