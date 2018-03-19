@@ -15,24 +15,82 @@ const {
 } = require('./constants');
 const { getMonthNumberFromDayOfYear, getMonthFromNumber } = require('./methods');
 
+const LEAP_FRACTION_LOWER = 0.041067761806981906;
+const LEAP_FRACTION_UPPER = 0.25051334701466565;
+
 function calculateYearAndPartialMs(epochMs) {
-  let year = 1970;
-  const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
-  const count = Math.round(epochMs / fourYears);
-  const totalLeapDayMs = (count * DAY_MS);
-  const epochNoLeap = epochMs - totalLeapDayMs;
-  year = Math.floor(epochNoLeap / YEAR_NO_LEAP_MS);
-  const wholeYears = (year * YEAR_NO_LEAP_MS) + totalLeapDayMs;
-  let partialYearMs = epochMs - wholeYears;
-  year += 1970;
-  const isLeap = year % 4 === 0;
-  if(epochMs >= 0 && isLeap && partialYearMs > 3600000 * count) { // TODO: Work out the cut off for the partialYearMs greater than
-    partialYearMs += DAY_MS;
-  } else if(epochMs < 0 && isLeap) {
-    console.log('less than zero and leap')
+  if(epochMs >= 0) {
+    const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
+    let count = (epochMs + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
+    const countMod = count % 1;
+    let leapDayOffset = 0;
+    if(countMod < LEAP_FRACTION_LOWER) {
+      count -= 1;
+    } else if(countMod >= LEAP_FRACTION_LOWER && countMod <= LEAP_FRACTION_UPPER) {
+      leapDayOffset = 1;
+    }
+    count = Math.floor(count);
+    let year = Math.floor((epochMs - (count * DAY_MS)) / (365 * DAY_MS));
+    const partialYearMs = epochMs - ((year * YEAR_NO_LEAP_MS) + ((count - leapDayOffset) * DAY_MS));
+    year += 1970;
+    return { year, partialYearMs };
+  } else {
+    // handle dates before 1970-01-01T00:00:00Z
+    let year = 0;
+    let partialYearMs = 0;
+    let count = (epochMs + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
+
+    return { year, partialYearMs };
   }
-  return { year, partialYearMs };
 }
+
+// function calculateYearAndPartialMs(epochMs) {
+//   console.log('========================================');
+//   console.log('========================================');
+
+//   const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
+//   let count = (Math.abs(epochMs) + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
+//   const countMod = count % 1;
+//   let leapDayOffset = 0;
+//   // console.log(countMod);
+//   if(countMod < LEAP_FRACTION_LOWER) {
+//     count -= 1;
+//   }
+
+
+//   count = Math.floor(count);
+//   let year = (epochMs - (count * DAY_MS)) / (365 * DAY_MS);
+//   console.log('count', count);
+//   console.log('YEAR', year);
+//   year = Math.floor(year);
+//   console.log('YEAR-1', year);
+//   let partialYearMs = Math.abs(epochMs) - ((Math.abs(year) * YEAR_NO_LEAP_MS) + ((count - leapDayOffset) * DAY_MS));
+//   if(partialYearMs < 0) {
+//     partialYearMs = Math.abs(partialYearMs);
+//   }
+//   year += 1970;
+//   console.log('YEAR 2:', year);
+//   return { year, partialYearMs };
+// }
+
+// function calculateYearAndPartialMs(epochMs) {
+//   let year = 1970;
+//   const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
+//   const count = Math.round(epochMs / fourYears);
+//   const totalLeapDayMs = (count * DAY_MS);
+//   const epochNoLeap = epochMs - totalLeapDayMs;
+//   year = Math.floor(epochNoLeap / YEAR_NO_LEAP_MS);
+//   const wholeYears = (year * YEAR_NO_LEAP_MS) + totalLeapDayMs;
+//   let partialYearMs = epochMs - wholeYears;
+//   year += 1970;
+//   const isLeap = year % 4 === 0;
+//   if(epochMs >= 0 && isLeap && partialYearMs > 3600000 * count) { // TODO: Work out the cut off for the partialYearMs greater than
+//     partialYearMs += DAY_MS;
+//   } else if(epochMs < 0 && isLeap) {
+//     console.log('less than zero and leap')
+//   }
+//   return { year, partialYearMs };
+// }
 
 function calculateDayOfYear(partialYearMS) {
   return Math.floor(partialYearMS / DAY_MS) + 1;
