@@ -128,7 +128,10 @@ function calculateIsLeapYear(year) {
 }
 
 function calculateHour(epochMs) {
-  const dayRemainder = Math.abs(epochMs) % DAY_MS;
+  const dayRemainder = epochMs % DAY_MS;
+  if(dayRemainder < 0) {
+    return 24 + Math.floor(dayRemainder / HOUR_MS);
+  }
   return Math.floor(dayRemainder / HOUR_MS);
 }
 

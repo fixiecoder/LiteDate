@@ -30,8 +30,8 @@ module.exports = {
   noLeap: {
     years: [
       { epoch: -126230400000, year: 1966 },
-      { epoch: -94694400000, year: 1967 },
-      { epoch: -31536000000, year: 1969 },
+      // { epoch: -94694400000, year: 1967 },
+      // { epoch: -31536000000, year: 1969 },
       { epoch: 31536000000, year: 1971 },
       { epoch: 347155200000, year: 1981 },
       { epoch: 599616000000, year: 1989 },
