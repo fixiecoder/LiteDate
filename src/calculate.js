@@ -50,60 +50,9 @@ function calculateYearAndPartialMs(epochMs) {
     if(countMod > 0.7 && isLeapYear) {
       partialYearMs += DAY_MS;
     }
-    console.log('countMod', countMod);
-    console.log('posEpochMs', posEpochMs);
-    console.log('WholeYears', partialYearMs);
     return { year: 1970 - year, partialYearMs };
   }
 }
-
-// function calculateYearAndPartialMs(epochMs) {
-//   console.log('========================================');
-//   console.log('========================================');
-
-//   const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
-//   let count = (Math.abs(epochMs) + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
-//   const countMod = count % 1;
-//   let leapDayOffset = 0;
-//   // console.log(countMod);
-//   if(countMod < LEAP_FRACTION_LOWER) {
-//     count -= 1;
-//   }
-
-
-//   count = Math.floor(count);
-//   let year = (epochMs - (count * DAY_MS)) / (365 * DAY_MS);
-//   console.log('count', count);
-//   console.log('YEAR', year);
-//   year = Math.floor(year);
-//   console.log('YEAR-1', year);
-//   let partialYearMs = Math.abs(epochMs) - ((Math.abs(year) * YEAR_NO_LEAP_MS) + ((count - leapDayOffset) * DAY_MS));
-//   if(partialYearMs < 0) {
-//     partialYearMs = Math.abs(partialYearMs);
-//   }
-//   year += 1970;
-//   console.log('YEAR 2:', year);
-//   return { year, partialYearMs };
-// }
-
-// function calculateYearAndPartialMs(epochMs) {
-//   let year = 1970;
-//   const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
-//   const count = Math.round(epochMs / fourYears);
-//   const totalLeapDayMs = (count * DAY_MS);
-//   const epochNoLeap = epochMs - totalLeapDayMs;
-//   year = Math.floor(epochNoLeap / YEAR_NO_LEAP_MS);
-//   const wholeYears = (year * YEAR_NO_LEAP_MS) + totalLeapDayMs;
-//   let partialYearMs = epochMs - wholeYears;
-//   year += 1970;
-//   const isLeap = year % 4 === 0;
-//   if(epochMs >= 0 && isLeap && partialYearMs > 3600000 * count) { // TODO: Work out the cut off for the partialYearMs greater than
-//     partialYearMs += DAY_MS;
-//   } else if(epochMs < 0 && isLeap) {
-//     console.log('less than zero and leap')
-//   }
-//   return { year, partialYearMs };
-// }
 
 function calculateDayOfYear(partialYearMS) {
   return Math.floor(partialYearMS / DAY_MS) + 1;
@@ -179,7 +128,7 @@ function calculateIsLeapYear(year) {
 }
 
 function calculateHour(epochMs) {
-  const dayRemainder = epochMs % DAY_MS;
+  const dayRemainder = Math.abs(epochMs) % DAY_MS;
   return Math.floor(dayRemainder / HOUR_MS);
 }
 

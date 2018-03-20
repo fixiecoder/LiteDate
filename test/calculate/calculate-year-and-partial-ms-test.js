@@ -17,7 +17,7 @@ describe('calculateYearAndPartialMs', () => {
         const ms = remain.ms ? prefixUnitZero(remain.ms) : 0;
         const testDescription =
           `#${remain.id} - should return remainder: ${r} and year: ${y} when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}.${ms}`;
-        it.only(testDescription, () => {
+        it(testDescription, () => {
           const result = calculateYearAndPartialMs(year.epoch + r);
           assert.equal(result.year, y);
           assert.equal(result.partialYearMs, r);
@@ -37,7 +37,7 @@ describe('calculateYearAndPartialMs', () => {
         const mi = prefixUnitZero(remain.minute);
         const s = prefixUnitZero(remain.second);
         const ms = remain.ms ? prefixUnitZero(remain.ms) : 0;
-        it.only(`#${remain.id} - should return remainder: ${r} and year: ${y} when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}.${ms}`, () => {
+        it(`#${remain.id} - should return remainder: ${r} and year: ${y} when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}.${ms}`, () => {
           const result = calculateYearAndPartialMs(year.epoch + r);
           assert.equal(result.year, y);
           assert.equal(result.partialYearMs, r);
