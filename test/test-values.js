@@ -1,8 +1,8 @@
 module.exports = {
   leap: {
     years: [
-      // { epoch: -189388800000, year: 1964 },
-      // { epoch: -63158400000, year: 1968 },
+      { epoch: -189388800000, year: 1964 },
+      { epoch: -63158400000, year: 1968 },
       { epoch: 315532800000, year: 1980 },
       { epoch: 567993600000, year: 1988 },
       { epoch: 820454400000, year: 1996 },
@@ -29,9 +29,9 @@ module.exports = {
   },
   noLeap: {
     years: [
-      // { epoch: -126230400000, year: 1966 },
-      // { epoch: -94694400000, year: 1967 },
-      // { epoch: -31536000000, year: 1969 },
+      { epoch: -126230400000, year: 1966 },
+      { epoch: -94694400000, year: 1967 },
+      { epoch: -31536000000, year: 1969 },
       { epoch: 31536000000, year: 1971 },
       { epoch: 347155200000, year: 1981 },
       { epoch: 599616000000, year: 1989 },

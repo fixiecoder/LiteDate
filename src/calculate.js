@@ -19,8 +19,8 @@ const LEAP_FRACTION_LOWER = 0.041067761806981906;
 const LEAP_FRACTION_UPPER = 0.25051334701466565;
 
 function calculateYearAndPartialMs(epochMs) {
+  const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
   if(epochMs >= 0) {
-    const fourYears = YEAR_LEAP_MS + (3 * YEAR_NO_LEAP_MS);
     let count = (epochMs + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
     const countMod = count % 1;
     let leapDayOffset = 0;
@@ -38,9 +38,22 @@ function calculateYearAndPartialMs(epochMs) {
     // handle dates before 1970-01-01T00:00:00Z
     let year = 0;
     let partialYearMs = 0;
-    let count = (epochMs + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
-
-    return { year, partialYearMs };
+    const posEpochMs = Math.abs(epochMs);
+    let count = (posEpochMs + YEAR_NO_LEAP_MS + YEAR_LEAP_MS) / fourYears;
+    const countMod = count % 1;
+    count = Math.floor(count);
+    year = (posEpochMs - (count * DAY_MS)) / (365 * DAY_MS);
+    year = Math.ceil(year);
+    const wholeYears = ((year * YEAR_NO_LEAP_MS) + (count * DAY_MS));
+    partialYearMs = Math.abs(posEpochMs - wholeYears);
+    const isLeapYear = year % 4 === 2;
+    if(countMod > 0.7 && isLeapYear) {
+      partialYearMs += DAY_MS;
+    }
+    console.log('countMod', countMod);
+    console.log('posEpochMs', posEpochMs);
+    console.log('WholeYears', partialYearMs);
+    return { year: 1970 - year, partialYearMs };
   }
 }
 
