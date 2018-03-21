@@ -4,7 +4,7 @@
   "description": "Simple lightweight UTC date object tool that allows date formatting and manipulation",
   "main": "src/index.js",
   "scripts": {
-    "test": "nyc mocha",
+    "test": "nyc mocha --reporter landing",
     "build": "export mode=development && webpack --watch",
     "build:dev": "npm run build",
     "build:prod": "export mode=production && webpack",
