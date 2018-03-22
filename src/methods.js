@@ -27,7 +27,6 @@ function prefixUnitZero(val) {
   return newVal;
 }
 
-
 function getOrdinal(number) {
   const numberAsString = number.toString();
   const lastDigit = numberAsString.charAt(numberAsString.length - 1);
@@ -81,9 +80,6 @@ function getMonthFromDayOfYear(dayOfYear, isLeapYear) {
     return MONTHS_INDEX[0];
   }
 }
-
-
-
 
 /*
 

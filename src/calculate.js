@@ -152,6 +152,5 @@ module.exports = {
   calculateYearAndPartialMs,
   calculateHour,
   calculateDateFromPartialYear,
-  getMonthNumberFromDayOfYear
 };
 
