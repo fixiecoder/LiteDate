@@ -1,5 +1,5 @@
 const { assert } = require('chai');
-const { getOrdinal } = require('../../src/methods');
+const { getOrdinal } = require('../../src/helpers');
 
 const testValues = [
   { number: 1, ordinal: 'st' },

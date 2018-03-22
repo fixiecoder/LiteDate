@@ -1,4 +1,4 @@
-const { prefixUnitZero, getOrdinal, getMonthFromDayOfYear } = require('./methods');
+const { prefixUnitZero, getOrdinal } = require('./helpers');
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
@@ -16,7 +16,7 @@ const {
   calculateIsLeapYear,
   calculateHour,
   calculateDateFromPartialYear,
-  getMonthNumberFromDayOfYear,
+  calculateMonthNumberFromDayOfYear,
 } = require('./calculate');
 
 module.exports = class UTCDate {
@@ -113,7 +113,7 @@ module.exports = class UTCDate {
 
   getMonth() {
     if(this._cache.month === undefined) {
-      this._cache.month = getMonthNumberFromDayOfYear(this.getDayOfYear(), this._cache.isLeapYear);
+      this._cache.month = calculateMonthNumberFromDayOfYear(this.getDayOfYear(), this._cache.isLeapYear);
     }
     return this._cache.month;
   }

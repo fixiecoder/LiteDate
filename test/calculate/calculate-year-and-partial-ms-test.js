@@ -1,7 +1,7 @@
 const { assert } = require('chai');
 const { calculateYearAndPartialMs } = require('../../src/calculate');
 const testValues = require('../test-values');
-const { prefixUnitZero } = require('../../src/methods');
+const { prefixUnitZero } = require('../../src/helpers');
 
 describe('calculateYearAndPartialMs', () => {
   describe('leap years', () => {

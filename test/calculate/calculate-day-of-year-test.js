@@ -1,4 +1,4 @@
-const { prefixUnitZero } = require('../../src/methods');
+const { prefixUnitZero } = require('../../src/helpers');
 const { assert } = require('chai');
 const { calculateDayOfYear } = require('../../src/calculate');
 const testValues = require('../test-values');

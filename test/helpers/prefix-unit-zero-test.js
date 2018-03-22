@@ -1,5 +1,5 @@
 const { assert } = require('chai');
-const { prefixUnitZero } = require('../../src/methods');
+const { prefixUnitZero } = require('../../src/helpers');
 
 const testValues = [
   { number: 1, expected: '01' },
