@@ -135,6 +135,22 @@ function calculateHour(epochMs) {
   return Math.floor(dayRemainder / HOUR_MS);
 }
 
+function calculateMinutes(epochMs) {
+  const hourRemainder = epochMs % HOUR_MS;
+  if(hourRemainder < 0) {
+    return 60 + Math.floor(hourRemainder / MINUTE_MS);
+  }
+  return Math.floor(hourRemainder / MINUTE_MS);
+}
+
+function calculateSeconds(epochMs) {
+  const minutesRemainder = epochMs % MINUTE_MS;
+  if(minutesRemainder < 0) {
+    return 60 + Math.floor(minutesRemainder / 1000);
+  }
+  return Math.floor(minutesRemainder / 1000);
+}
+
 function calculateMonthFromDayOfYear(dayOfYear, isLeapYear) {
   const leapYearAddition = isLeapYear ? 1 : 0;
   if(dayOfYear <= 31) {
@@ -213,6 +229,8 @@ module.exports = {
   calculateIsLeapYear,
   calculateYearAndPartialMs,
   calculateHour,
+  calculateMinutes,
+  calculateSeconds,
   calculateDateFromPartialYear,
   calculateMonthFromDayOfYear,
   calculateMonthNumberFromDayOfYear,

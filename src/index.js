@@ -17,7 +17,10 @@ const {
   calculateHour,
   calculateDateFromPartialYear,
   calculateMonthNumberFromDayOfYear,
+  calculateMinutes,
+  calculateSeconds,
 } = require('./calculate');
+const { format } = require('./methods');
 
 module.exports = class UTCDate {
   constructor(_date) {
@@ -28,15 +31,15 @@ module.exports = class UTCDate {
     if(!_date) {
       this._cache.epochMs = this.now();
     } else if(Array.isArray(_date)) {
-      const { isLeapYear, epochMs, month } = caclulateEpochMS(_date);
+      const { isLeapYear, epochMs } = caclulateEpochMS(_date);
       this._cache.epochMs = epochMs;
-      // this._cache.month = month;
       this._cache.year = _date[0] || 1970;
       this._cache.month = _date[1] || 1;
       this._cache.date = _date[2] || 1;
       this._cache.hour = _date[3] || 0;
       this._cache.minute = _date[4] || 0;
-      this._cache.ms = _date[5] || 0;
+      this._cache.seconds = _date[5] || 0;
+      this._cache.ms = _date[6] || 0;
       this._cache.isLeapYear = isLeapYear;
     } else if(typeof _date === 'number') {
       this._cache.epochMs = _date;
@@ -44,6 +47,7 @@ module.exports = class UTCDate {
 
     this._setIsLeapYear();
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
+    this.format = format;
   }
 
   _setIsLeapYear() {
@@ -118,6 +122,10 @@ module.exports = class UTCDate {
     return this._cache.month;
   }
 
+  getMonthName(type = this._TYPES.LONG) {
+    return MONTHS_INDEX[this.getMonth() - 1][type];
+  }
+
   getDate() {
     if(this._cache.date === undefined) {
       this._cache.date = calculateDateFromPartialYear(this.getDayOfYear(), this._getIsLeapYear());
@@ -137,6 +145,20 @@ module.exports = class UTCDate {
       this._cache.hour = calculateHour(this._cache.epochMs);
     }
     return this._cache.hour;
+  }
+
+  getMinutes() {
+    if(this._cache.minutes === undefined) {
+      this._cache.minutes = calculateMinutes(this._cache.epochMs);
+    }
+    return this._cache.minutes;
+  }
+
+  getSeconds() {
+    if(this._cache.seconds === undefined) {
+      this._cache.seconds = calculateSeconds(this._cache.epochMs);
+    }
+    return this._cache.seconds;
   }
 
   // getDayOfWeek(type = type = this._TYPES.LONG) {
