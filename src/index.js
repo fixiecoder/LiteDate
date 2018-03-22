@@ -29,7 +29,7 @@ module.exports = class UTCDate {
     this._daysOfWeek = DAYS_OF_WEEK;
     this._originalDateValue = _date;
     if(!_date) {
-      this._cache.epochMs = this.now();
+      this._cache.epochMs = Date.now();
     } else if(Array.isArray(_date)) {
       const { isLeapYear, epochMs } = caclulateEpochMS(_date);
       this._cache.epochMs = epochMs;
@@ -140,7 +140,7 @@ module.exports = class UTCDate {
     return this._cache.dayOfWeek;
   }
 
-  getHour() {
+  getHours() {
     if(this._cache.hour === undefined) {
       this._cache.hour = calculateHour(this._cache.epochMs);
     }

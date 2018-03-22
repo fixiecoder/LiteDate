@@ -24,14 +24,14 @@ module.exports = {
       { id: 10, value: 8421632000, month: 4, date: 7, hour: 11, minute: 20, second: 32, dayOfYear: 98 },
       { id: 11, value: 18576558000, month: 8, date: 3, hour: 0, minute: 9, second: 18, dayOfYear: 216 },
       { id: 12, value: 31622399000, month: 12, date: 31, hour: 23, minute: 59, second: 59, dayOfYear: 366 },
-      { id: 12, value: 31622399999, month: 12, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 366 },
+      { id: 13, value: 31622399999, month: 12, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 366 },
     ],
   },
   noLeap: {
     years: [
       { epoch: -126230400000, year: 1966 },
-      // { epoch: -94694400000, year: 1967 },
-      // { epoch: -31536000000, year: 1969 },
+      { epoch: -94694400000, year: 1967 },
+      { epoch: -31536000000, year: 1969 },
       { epoch: 31536000000, year: 1971 },
       { epoch: 347155200000, year: 1981 },
       { epoch: 599616000000, year: 1989 },
