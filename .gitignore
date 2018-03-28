@@ -59,3 +59,7 @@ typings/
 
 #build folder
 dist/
+
+jsdoc-parse.js
+jsdoc.json
+out/

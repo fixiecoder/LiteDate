@@ -22,7 +22,17 @@ const {
 } = require('./calculate');
 const { format } = require('./methods');
 
-module.exports = class UTCDate {
+/**
+ * this is the main app
+ * @constructor
+ *
+ * @param {Number|Array|String} date epoch date in milliseconds lkjaljfdsa
+ * jshdghsdag
+ * sdjhgkjsdhgkjhsdag
+ * dhsgsdalgk
+ * 
+ */
+class UTCDate {
   constructor(_date) {
     this._cache = {};
     this._monthsIndex = MONTHS_INDEX;
@@ -93,6 +103,10 @@ module.exports = class UTCDate {
     return this._cache.epochMs;
   }
 
+  /**
+   * The time in milliseconds after epoch: 1970-01-01T00:00:00
+   * @return {Number}
+   */
   getTime() {
     return this._cache.epochMs;
   }
@@ -214,4 +228,6 @@ module.exports = class UTCDate {
   //       return `${this.getDayOfWeek(this._TYPES.LONG)} ${this.dayOfMonth()} ${this.getMonthName(this._TYPES.LONG)} ${this.getYear()} ${this.getHours()}:${this.getMinutes()}${this.getHours() >= 12 ? 'pm' : 'am'}`;
   //   }
   // }
-};
+}
+
+module.exports = UTCDate;
