@@ -1,5 +1,5 @@
 const { prefixUnitZero, getOrdinal } = require('./helpers');
-
+const { FORMAT_PARTS } = require('./constants');
 /*
 
   YYYY      2014  4 or 2 digit year
@@ -25,71 +25,71 @@ const { prefixUnitZero, getOrdinal } = require('./helpers');
 
 function convertFormatChunkIntoValue(chunk) {
   switch(chunk) {
-    case 's':
+    case FORMAT_PARTS.SECONDS:
       return this.getSeconds();
 
-    case 'ss':
+    case FORMAT_PARTS.SECONDS_PADDED:
       return prefixUnitZero(this.getSeconds());
 
-    case 'm':
+    case FORMAT_PARTS.MINUTES:
       return this.getMinutes();
 
-    case 'mm':
+    case FORMAT_PARTS.MINUTES_PADDED:
       return prefixUnitZero(this.getMinutes());
 
-    case 'H':
+    case FORMAT_PARTS.HOURS_24:
       return this.getHours();
 
-    case 'HH':
+    case FORMAT_PARTS.HOURS_24_PADDED:
       return prefixUnitZero(this.getHours());
 
-    case 'h': {
+    case FORMAT_PARTS.HOURS_12: {
       const hours = this.getHours();
       return hours > 12 ? hours - 12 : hours;
 
     }
-    case 'hh': {
+    case FORMAT_PARTS.HOURS_12_PADDED: {
       const hours = this.getHours();
       return prefixUnitZero(hours > 12 ? hours - 12 : hours);
 
     }
-    case 'x':
+    case FORMAT_PARTS.EPOCH_MS:
       return this.getTime();
 
-    case 'X':
+    case FORMAT_PARTS.EPOCH_S:
       return this.getTime() / 1000;
 
-    case 'dddd':
+    case FORMAT_PARTS.DAY_NAME_LONG:
       return this.getDayOfWeek(this._TYPES.LONG);
 
-    case 'ddd':
+    case FORMAT_PARTS.DAY_NAME_SHORT:
       return this.getDayOfWeek(this._TYPES.SHORT);
 
-    case 'Do':
+    case FORMAT_PARTS.DATE_ORDINAL:
       return getOrdinal(this.getDate());
 
-    case 'D':
+    case FORMAT_PARTS.DATE:
       return this.getDate();
 
-    case 'DD':
+    case FORMAT_PARTS.DATE_PADDED:
       return prefixUnitZero(this.getDate());
 
-    case 'M':
+    case FORMAT_PARTS.MONTH:
       return this.getMonth();
 
-    case 'MM':
+    case FORMAT_PARTS.MONTH_PADDED:
       return prefixUnitZero(this.getMonth());
 
-    case 'MMM':
+    case FORMAT_PARTS.MONTH_NAME_SHORT:
       return this.getMonthName(this._TYPES.SHORT);
 
-    case 'MMMM':
+    case FORMAT_PARTS.MONTH_NAME_LONG:
       return this.getMonthName(this._TYPES.LONG);
 
-    case 'YY':
+    case FORMAT_PARTS.YEAR:
       return this.getYear(this._TYPES.SHORT);
 
-    case 'YYYY':
+    case FORMAT_PARTS.YEAR_FULL:
       return this.getYear();
 
     default:

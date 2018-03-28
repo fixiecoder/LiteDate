@@ -12,7 +12,6 @@ const MONTHS_INDEX = [
   { long: 'November', short: 'Nov', daysInMonth: 30, dayOfYearIndex: 304 },
   { long: 'December', short: 'Dec', daysInMonth: 31, dayOfYearIndex: 334 },
 ];
-
 const DAYS_OF_WEEK = [
   { long: 'Sunday', short: 'Sun', day: 7 },
   { long: 'Monday', short: 'Mon', day: 1 },
@@ -22,9 +21,7 @@ const DAYS_OF_WEEK = [
   { long: 'Friday', short: 'Fri', day: 5 },
   { long: 'Saturday', short: 'Sat', day: 6 },
 ];
-
 const DAYS_OF_WEEK_EPOCH_BASED = [4, 5, 6, 0, 1, 2, 3];
-
 const SECOND_MS = 1000;
 const MINUTE_MS = 60000;
 const HOUR_MS = 3600000;
@@ -35,6 +32,29 @@ const YEAR_MS = DAY_MS * 365.5;
 const YEAR_NO_LEAP_MS = DAY_MS * 365;
 const YEAR_LEAP_MS = DAY_MS * 366;
 const FEB_29_LAST_MS_PARTIAL = 5270399999;
+const FORMAT_PARTS = {
+  SECONDS: 's',
+  SECONDS_PADDED: 'ss',
+  MINUTES: 'm',
+  MINUTES_PADDED: 'mm',
+  HOURS_24: 'H',
+  HOURS_24_PADDED: 'HH',
+  HOURS_12: 'h',
+  HOURS_12_PADDED: 'hh',
+  EPOCH_MS: 'x',
+  EPOCH_S: 'X',
+  DAY_NAME_LONG: 'dddd',
+  DAY_NAME_SHORT: 'ddd',
+  DATE_ORDINAL: 'Do',
+  DATE: 'D',
+  DATE_PADDED: 'DD',
+  MONTH: 'M',
+  MONTH_PADDED: 'MM',
+  MONTH_NAME_SHORT: 'MMM',
+  MONTH_NAME_LONG: 'MMMM',
+  YEAR: 'YY',
+  YEAR_FULL: 'YYYY',
+};
 
 module.exports = {
   MONTHS_INDEX,
@@ -50,4 +70,5 @@ module.exports = {
   YEAR_MS,
   YEAR_LEAP_MS,
   YEAR_NO_LEAP_MS,
+  FORMAT_PARTS,
 };
