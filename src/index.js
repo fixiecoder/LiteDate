@@ -87,6 +87,26 @@ class UTCDate {
     return this._cache.partialYearMS;
   }
 
+  _getFormatHours(zeroPadded = false, twelveHour = false) {
+    let hours = this._getHours();
+    if(twelveHour && this._cache.hour > 12) {
+      hours -= 12;
+    }
+
+    if(zeroPadded) {
+      hours = prefixUnitZero(hours);
+    }
+
+    return hours;
+  } 
+
+  _getHours(zeroPadded = false, twelveHour = false) {
+    if(this._cache.hour === undefined) {
+      this._cache.hour = calculateHour(this._cache.epochMs);
+    }
+    return this._cache.hour;
+  }
+
   toISOString() {
     return `${this.getYear()}-${prefixUnitZero(this.getMonth())}-${prefixUnitZero(this.getDate())}T${prefixUnitZero(this.getHour())}:${prefixUnitZero(0)}:${prefixUnitZero(0)}Z`;
   }
@@ -155,10 +175,7 @@ class UTCDate {
   }
 
   getHours() {
-    if(this._cache.hour === undefined) {
-      this._cache.hour = calculateHour(this._cache.epochMs);
-    }
-    return this._cache.hour;
+    return this._getHours();
   }
 
   getMinutes() {

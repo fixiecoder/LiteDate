@@ -1,5 +1,5 @@
 const { prefixUnitZero, getOrdinal } = require('./helpers');
-const { FORMAT_PARTS } = require('./constants');
+const { FORMAT_PARTS, FORMAT_PARTS_FN_MAP } = require('./constants');
 /*
 
   YYYY      2014  4 or 2 digit year
@@ -115,6 +115,8 @@ function format(formatString = '') {
       }
       // get the correct value for the chunk and push it into the outputArray
       // reset the chunck back to length 0
+      // const fnAndArgs = FORMAT_PARTS_FN_MAP[chunk.join('')];
+      // const res = this[fnAndArgs.fn]](...fnAndArgs.args);
       outputArray.push(convertFormatChunkIntoValue.call(this, chunk.join('')));
       chunk.length = 0;
     }
