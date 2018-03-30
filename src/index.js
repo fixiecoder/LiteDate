@@ -87,17 +87,52 @@ class UTCDate {
     return this._cache.partialYearMS;
   }
 
+  _getFormatSeconds(zeroPadded = false) {
+    let seconds = this.getSeconds();
+    if(zeroPadded) {
+      seconds = prefixUnitZero(seconds);
+    }
+    return seconds;
+  }
+
+  _getFormatMinutes(zeroPadded = false) {
+    let minutes = this.getMinutes();
+    if(zeroPadded) {
+      minutes = prefixUnitZero(minutes);
+    }
+    return minutes;
+  }
+
   _getFormatHours(zeroPadded = false, twelveHour = false) {
     let hours = this._getHours();
     if(twelveHour && this._cache.hour > 12) {
       hours -= 12;
     }
-
     if(zeroPadded) {
       hours = prefixUnitZero(hours);
     }
-
     return hours;
+  }
+
+  _getFormatDate(zeroPadded = false, ordinal = false) {
+    let date = this.getDate();
+    if(zeroPadded) {
+      date = prefixUnitZero(date);
+    }
+
+    if(ordinal) {
+      date = getOrdinal(date);
+    }
+
+    return date;
+  }
+
+  _getFormatMonths(zeroPadded = false) {
+    let month = this.getMonth();
+    if(zeroPadded) {
+      month = prefixUnitZero(month);
+    }
+    return month;
   } 
 
   _getHours(zeroPadded = false, twelveHour = false) {

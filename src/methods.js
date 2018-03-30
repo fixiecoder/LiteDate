@@ -115,9 +115,9 @@ function format(formatString = '') {
       }
       // get the correct value for the chunk and push it into the outputArray
       // reset the chunck back to length 0
-      // const fnAndArgs = FORMAT_PARTS_FN_MAP[chunk.join('')];
-      // const res = this[fnAndArgs.fn]](...fnAndArgs.args);
-      outputArray.push(convertFormatChunkIntoValue.call(this, chunk.join('')));
+      const chunkVal = chunk.join('');
+      const fnAndArgs = FORMAT_PARTS_FN_MAP[chunkVal];
+      outputArray.push(fnAndArgs ? this[fnAndArgs.fn](...fnAndArgs.args) : chunkVal);
       chunk.length = 0;
     }
     if(skip === false) {
