@@ -99,6 +99,7 @@ function convertFormatChunkIntoValue(chunk) {
 }
 
 function format(formatString = '') {
+  const rx = /(ss?)|(mm?)|(hh?)|(HH?)|(dd?d?d?)|(DD?o?)|(MM?M?M?)|(YY?Y?Y)|(.)/g;
   const chunk = [];
   const outputArray = [];
   let previousChar = '';
@@ -106,29 +107,11 @@ function format(formatString = '') {
   const ordinal = ['D', 'o'];
   let skip = false;
 
-  for(let i = 0; i <= maxIterations; i += 1) {
-    const currentChar = formatString.charAt(i);
-    if((currentChar !== previousChar && i !== 0) || i === maxIterations) {
-      if((previousChar === ordinal[0] && currentChar === ordinal[1]) || i === maxIterations) {
-        chunk.push(currentChar);
-        skip = true;
-      }
-      // get the correct value for the chunk and push it into the outputArray
-      // reset the chunck back to length 0
-      const chunkVal = chunk.join('');
-      const fnAndArgs = FORMAT_PARTS_FN_MAP[chunkVal];
-      outputArray.push(fnAndArgs ? this[fnAndArgs.fn](...fnAndArgs.args) : chunkVal);
-      chunk.length = 0;
-    }
-    if(skip === false) {
-      chunk.push(currentChar);
-    } else {
-      skip = false;
-    }
-    previousChar = currentChar;
+  const matches = formatString.match(rx);
+  for(let i = 0; i < matches.length; i += 1) {
+    const fnAndArgs = FORMAT_PARTS_FN_MAP[matches[i]];
+    outputArray.push(fnAndArgs ? this[fnAndArgs.fn](...fnAndArgs.args) : matches[i]);
   }
-
-
   return outputArray.join('');
 }
 
