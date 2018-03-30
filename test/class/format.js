@@ -33,7 +33,7 @@ const vals = [
   { formatString: 'HH:mm', output: (...rest) => `${prefixUnitZero(rest[3])}:${prefixUnitZero(rest[4])}` },
 ];
 
-describe.only('UTCDate', () => {
+describe('UTCDate', () => {
   testValues.leap.years.forEach(year => {
     testValues.leap.partial.forEach(partial => {
       vals.forEach(val => {

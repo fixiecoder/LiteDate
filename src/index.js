@@ -282,4 +282,5 @@ class UTCDate {
   // }
 }
 
-module.exports = UTCDate;
+// module.exports = UTCDate;
+window.UTCDate = UTCDate;
