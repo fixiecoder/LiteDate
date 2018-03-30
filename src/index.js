@@ -281,5 +281,5 @@ class UTCDate {
   //   }
   // }
 }
-
-module.exports = UTCDate;
+window.UTCDateNoRegex = UTCDate;
+// module.exports = UTCDate;

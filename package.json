@@ -6,6 +6,7 @@
   "scripts": {
     "test": "nyc mocha",
     "build": "export mode=development && webpack --watch",
+    "build:browser": "export mode=production && export envType=browser && webpack",
     "build:dev": "npm run build",
     "build:prod": "export mode=production && webpack",
     "postinstall": "npm run build:prod"
