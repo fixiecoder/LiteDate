@@ -6,6 +6,23 @@ const { MONTHS_INDEX } = require('./constants');
  * @return string
  */
 function prefixUnitZero(val) {
+  // let newVal = val;
+  // // if(val < 0) {
+  // //   newVal = val / -1;
+  // // }
+  // newVal = newVal < 10 ? `0${newVal}` : newVal;
+  // if(val < 0) {
+  //   newVal = `-${newVal}`;
+  // }
+  return val < 10 ? `0${val}` : val;
+}
+
+/** prefixUnitZero
+ * add a 0 to a number below 10 (ie, a unit)
+ * @param val: number
+ * @return string
+ */
+function prefixUnitZeroSigned(val) {
   let newVal = val;
   if(val < 0) {
     newVal = val / -1;
@@ -50,4 +67,5 @@ module.exports = {
   getOrdinal,
   prefixUnitZero,
   getMonthFromNumber,
+  prefixUnitZeroSigned,
 };

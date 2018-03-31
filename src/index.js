@@ -54,7 +54,7 @@ class UTCDate {
     } else if(typeof _date === 'number') {
       this._cache.epochMs = _date;
     }
-
+    this._setYearAndPartialYearMS();
     this._setIsLeapYear();
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
     this.format = format;
@@ -226,61 +226,6 @@ class UTCDate {
     }
     return this._cache.seconds;
   }
-
-  // getDayOfWeek(type = type = this._TYPES.LONG) {
-  //   return this._daysOfWeek[this._jsDate.getUTCDay()][type];
-  // }
-
-  // getMinutes() {
-  //   return this._jsDate.getMinutes();
-  // }
-
-  // getHours() {
-  //   return this._jsDate.getUTCHours();
-  // }
-
-  // getYear(type = this._TYPES.LONG) {
-  //   return this._jsDate.getUTCFullYear();
-  //   if(type === this._TYPES.SHORT) {
-  //     return this._jsDate.getUTCYear();
-  //   }
-  // }
-
-  // getMonthNumber() {
-  //   return this._jsDate.getUTCMonth() + 1;
-  // }
-
-  // getMonthName(type = this._TYPES.LONG) {
-  //   return this._monthsIndex[this.monthAsIndex()][type];
-  // }
-
-  // dayOfMonth() {
-  //   return this._jsDate.getUTCDate();
-  // }
-
-  // monthAsIndex() {
-  //   return this._jsDate.getUTCMonth();
-  // }
-
-  // valueOf() {
-  //   return this._jsDate.toISOString();
-  // }
-
-  // toString() {
-  //   return this._jsDate.toISOString();
-  // }
-
-  // formatted(type = this._TYPES.LONG) {
-  //   switch(type) {
-  //     case this._TYPES.SHORT:
-  //       return `${this.dayOfMonth()} ${this.getMonthName(type)}`;
-  //     case this._TYPES.MID:
-  //       return `${prefixUnitZero(this.dayOfMonth())} ${this.getMonthName(this._TYPES.SHORT)} ${this.getYear()} ${prefixUnitZero(this.getHours())}:${prefixUnitZero(this.getMinutes())}`;
-  //     case this._TYPES.LONG:
-  //       return `${this.getDayOfWeek(this._TYPES.LONG)} ${this.dayOfMonth()} ${this.getMonthName(this._TYPES.LONG)} ${this.getYear()} ${this.getHours()}:${this.getMinutes()}${this.getHours() >= 12 ? 'pm' : 'am'}`;
-  //   }
-  // }
 }
 
-// module.exports = UTCDate;
-window.UTCDate = UTCDate;
+module.exports = UTCDate;

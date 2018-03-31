@@ -100,17 +100,11 @@ function convertFormatChunkIntoValue(chunk) {
 
 function format(formatString = '') {
   const rx = /(ss?)|(mm?)|(hh?)|(HH?)|(dd?d?d?)|(DD?o?)|(MM?M?M?)|(YY?Y?Y)|(.)/g;
-  const chunk = [];
   const outputArray = [];
-  let previousChar = '';
-  const maxIterations = formatString.length - 1;
-  const ordinal = ['D', 'o'];
-  let skip = false;
-
   const matches = formatString.match(rx);
-  for(let i = 0; i < matches.length; i += 1) {
+  for(let i = 0, length = matches.length; i < length; i += 1) {
     const fnAndArgs = FORMAT_PARTS_FN_MAP[matches[i]];
-    outputArray.push(fnAndArgs ? this[fnAndArgs.fn](...fnAndArgs.args) : matches[i]);
+    outputArray.push(fnAndArgs ? this[fnAndArgs.fn].apply(this, fnAndArgs.args) : matches[i]);
   }
   return outputArray.join('');
 }
