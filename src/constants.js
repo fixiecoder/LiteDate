@@ -33,6 +33,7 @@ const YEAR_NO_LEAP_MS = DAY_MS * 365;
 const YEAR_LEAP_MS = DAY_MS * 366;
 const FEB_29_LAST_MS_PARTIAL = 5270399999;
 const FORMAT_PARTS = {
+  MILLISECONDS: 'ms',
   SECONDS: 's',
   SECONDS_PADDED: 'ss',
   MINUTES: 'm',
@@ -54,6 +55,13 @@ const FORMAT_PARTS = {
   MONTH_NAME_LONG: 'MMMM',
   YEAR: 'YY',
   YEAR_FULL: 'YYYY',
+};
+
+const UNIT_MS_VALUES = {
+  ms: 0,
+  s: 1000,
+  m: 60000,
+  h: 3600000,
 };
 
 const FORMAT_PARTS_FN_MAP = {
@@ -157,4 +165,5 @@ module.exports = {
   YEAR_NO_LEAP_MS,
   FORMAT_PARTS,
   FORMAT_PARTS_FN_MAP,
+  UNIT_MS_VALUES,
 };

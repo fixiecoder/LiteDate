@@ -39,7 +39,7 @@ describe('UTCDate', () => {
       vals.forEach(val => {
         const expected = val.output(year.year, partial.month, partial.date, partial.hour, partial.minute, partial.second);
         it(`#${partial.id} returns ${expected} for the format string ${val.formatString}`, () => {
-          const utcDate = new UTCDate([year.year, partial.month, partial.date, partial.hour, partial.minute, partial.second]);
+          const utcDate = UTCDate([year.year, partial.month, partial.date, partial.hour, partial.minute, partial.second]);
           const format = val.formatString;
           assert.equal(utcDate.format(format), expected);
         });

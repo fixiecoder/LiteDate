@@ -1,4 +1,4 @@
-const { MONTHS_INDEX } = require('./constants');
+const { MONTHS_INDEX, UNIT_MS_VALUES } = require('./constants');
 
 /** prefixUnitZero
  * add a 0 to a number below 10 (ie, a unit)
@@ -63,9 +63,16 @@ function getMonthFromNumber(monthNumber) {
   return MONTHS_INDEX[monthNumber - 1];
 }
 
+
+
+function getMsFromTimeUnit(time, unit) {
+  return time * (UNIT_MS_VALUES[unit] || 0);
+}
+
 module.exports = {
   getOrdinal,
   prefixUnitZero,
   getMonthFromNumber,
   prefixUnitZeroSigned,
+  getMsFromTimeUnit,
 };

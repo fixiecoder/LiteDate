@@ -1,4 +1,4 @@
-const { prefixUnitZero, getOrdinal } = require('./helpers');
+const { prefixUnitZero, getOrdinal, getMsFromTimeUnit } = require('./helpers');
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
@@ -226,6 +226,15 @@ class UTCDate {
     }
     return this._cache.seconds;
   }
+
+  addTime(time = 0, unit = 'ms') {
+    const initTime = getMsFromTimeUnit(time, unit);
+    return new UTCDate(initTime);
+  }
 }
 
-module.exports = UTCDate;
+function immutc(...args) {
+  return new UTCDate(...args);
+}
+
+module.exports = immutc;
