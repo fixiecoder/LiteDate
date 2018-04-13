@@ -11,20 +11,39 @@ module.exports = {
       { epoch: 1577836800000, year: 2020 },
     ],
     partial: [
-      { id: 0, value: 0, month: 1, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 1 },
+      { id: 1.1, value: 0, month: 1, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 1 },
+      { id: 1.2, value: 2678399999, month: 1, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 31 },
+      { id: 2.1, value: 2678400000, month: 2, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 32 },
+      { id: 2.2, value: 5183999999, month: 2, date: 29, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 60 },
+      { id: 3.1, value: 5184000000, month: 3, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 61 },
+      { id: 3.2, value: 7862399999, month: 3, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 91 },
+      { id: 4.1, value: 7862400000, month: 4, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 92 },
+      { id: 4.2, value: 10454399999, month: 4, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 121 },
+      { id: 5.1, value: 10454400000, month: 5, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 122 },
+      { id: 5.2, value: 13132799999, month: 5, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 152 },
+      { id: 6.1, value: 13132800000, month: 6, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 153 },
+      { id: 6.2, value: 15724799999, month: 6, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 182 },
+      { id: 7.1, value: 15724800000, month: 7, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 183 },
+      { id: 7.2, value: 18403199999, month: 7, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 213 },
+      { id: 8.1, value: 18403200000, month: 8, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 214 },
+      { id: 8.2, value: 21081599999, month: 8, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 244 },
+      { id: 9.1, value: 21081600000, month: 9, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 245 },
+      { id: 9.2, value: 23673599999, month: 9, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 274 },
+      { id: 10.1, value: 23673600000, month: 10, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 275 },
+      { id: 10.2, value: 26351999999, month: 10, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 305 },
+      { id: 11.1, value: 26352000000, month: 11, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 306 },
+      { id: 11.2, value: 28943999999, month: 11, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 335 },
+      { id: 12.1, value: 28944000000, month: 12, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 336 },
+      { id: 12.2, value: 31622399999, month: 12, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 366 },
+
       { id: 1, value: 3600000, month: 1, date: 1, hour: 1, minute: 0, second: 0, dayOfYear: 1 },
       { id: 2, value: 381600000, month: 1, date: 5, hour: 10, minute: 0, second: 0, dayOfYear: 5 },
-      { id: 3, value: 2678399999, month: 1, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 31 },
-      { id: 4, value: 2678400000, month: 2, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 32 },
       { id: 5, value: 4924800000, month: 2, date: 27, hour: 0, minute: 0, second: 0, dayOfYear: 58 },
       { id: 6, value: 5047810000, month: 2, date: 28, hour: 10, minute: 10, second: 10, dayOfYear: 59 },
       { id: 7, value: 5115600000, month: 2, date: 29, hour: 5, minute: 0, second: 0, dayOfYear: 60 },
-      { id: 8, value: 5183999999, month: 2, date: 29, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 60 },
-      { id: 9, value: 5184000000, month: 3, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 61 },
       { id: 10, value: 8421632000, month: 4, date: 7, hour: 11, minute: 20, second: 32, dayOfYear: 98 },
       { id: 11, value: 18576558000, month: 8, date: 3, hour: 0, minute: 9, second: 18, dayOfYear: 216 },
       { id: 12, value: 31622399000, month: 12, date: 31, hour: 23, minute: 59, second: 59, dayOfYear: 366 },
-      { id: 13, value: 31622399999, month: 12, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 366 },
     ],
   },
   noLeap: {
@@ -46,28 +65,33 @@ module.exports = {
     partial: [
       { id: 1.1, value: 0, month: 1, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 1 },
       { id: 1.2, value: 2678399999, month: 1, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 31 },
-      
       { id: 2.1, value: 2678400000, month: 2, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 32 },
       { id: 2.2, value: 5097599999, month: 2, date: 28, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 59 },
-
+      { id: 3.1, value: 5097600000, month: 3, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 60 },
       { id: 3.2, value: 7775999999, month: 3, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 90 },
-
+      { id: 4.1, value: 7776000000, month: 4, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 91 },
       { id: 4.2, value: 10367999999, month: 4, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 120 },
-      
+      { id: 5.1, value: 10368000000, month: 5, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 121 },
       { id: 5.2, value: 13046399999, month: 5, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 151 },
-
+      { id: 6.1, value: 13046400000, month: 6, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 152 },
       { id: 6.2, value: 15638399999, month: 6, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 181 },
-
       { id: 7.1, value: 15638400000, month: 7, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 182 },
       { id: 7.2, value: 18316799999, month: 7, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 212 },
-
-
+      { id: 8.1, value: 18316800000, month: 8, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 213 },
+      { id: 8.2, value: 20995199999, month: 8, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 243 },
+      { id: 9.1, value: 20995200000, month: 9, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 244 },
+      { id: 9.2, value: 23587199999, month: 9, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 273 },
+      { id: 10.1, value: 23587200000, month: 10, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 274 },
+      { id: 10.2, value: 26265599999, month: 10, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 304 },
+      { id: 11.1, value: 26265600000, month: 11, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 305 },
+      { id: 11.2, value: 28857599999, month: 11, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 334 },
+      { id: 12.1, value: 28857600000, month: 12, date: 1, hour: 0, minute: 0, second: 0, ms: 0, dayOfYear: 335 },
+      { id: 12.2, value: 31535999999, month: 12, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 365 },
 
       { id: 2, value: 5047810000, month: 2, date: 28, hour: 10, minute: 10, second: 10, dayOfYear: 59 },
       { id: 4, value: 8335232000, month: 4, date: 7, hour: 11, minute: 20, second: 32, dayOfYear: 97 },
       { id: 5, value: 18490158000, month: 8, date: 3, hour: 0, minute: 9, second: 18, dayOfYear: 215 },
       { id: 6, value: 31535999000, month: 12, date: 31, hour: 23, minute: 59, second: 59, dayOfYear: 365 },
-      { id: 7, value: 31535999999, month: 12, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 365 },
       { id: 8, value: 22866564000, month: 9, date: 22, hour: 15, minute: 49, second: 24, dayOfYear: 265 },
       { id: 9, value: 23944797000, month: 10, date: 5, hour: 3, minute: 19, second: 57, dayOfYear: 278 },
       { id: 10, value: 27894020000, month: 11, date: 19, hour: 20, minute: 20, second: 20, dayOfYear: 323 },
@@ -81,3 +105,9 @@ module.exports = {
     { id: 3, epoch: 657609795000, year: 1990, month: 11, date: 3, hour: 5, minute: 23, second: 15, dayOfYear: 308, dayOfWeek: 6 },
   ]
 };
+
+
+function dayOfYear(timeMs) {
+  const day = 1000 * 60 * 60 * 24;
+  return Math.floor((timeMs / day) + 1);
+}
