@@ -44,10 +44,26 @@ module.exports = {
       { epoch: 1546300800000, year: 2019 },
     ],
     partial: [
-      { id: 0, value: 0, month: 1, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 1 },
-      { id: 1, value: 2678400000, month: 2, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 32 },
+      { id: 1.1, value: 0, month: 1, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 1 },
+      { id: 1.2, value: 2678399999, month: 1, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 31 },
+      
+      { id: 2.1, value: 2678400000, month: 2, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 32 },
+      { id: 2.2, value: 5097599999, month: 2, date: 28, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 59 },
+
+      { id: 3.2, value: 7775999999, month: 3, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 90 },
+
+      { id: 4.2, value: 10367999999, month: 4, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 120 },
+      
+      { id: 5.2, value: 13046399999, month: 5, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 151 },
+
+      { id: 6.2, value: 15638399999, month: 6, date: 30, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 181 },
+
+      { id: 7.1, value: 15638400000, month: 7, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 182 },
+      { id: 7.2, value: 18316799999, month: 7, date: 31, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 212 },
+
+
+
       { id: 2, value: 5047810000, month: 2, date: 28, hour: 10, minute: 10, second: 10, dayOfYear: 59 },
-      { id: 3, value: 5097599999, month: 2, date: 28, hour: 23, minute: 59, second: 59, ms: 999, dayOfYear: 59 },
       { id: 4, value: 8335232000, month: 4, date: 7, hour: 11, minute: 20, second: 32, dayOfYear: 97 },
       { id: 5, value: 18490158000, month: 8, date: 3, hour: 0, minute: 9, second: 18, dayOfYear: 215 },
       { id: 6, value: 31535999000, month: 12, date: 31, hour: 23, minute: 59, second: 59, dayOfYear: 365 },
@@ -57,7 +73,6 @@ module.exports = {
       { id: 10, value: 27894020000, month: 11, date: 19, hour: 20, minute: 20, second: 20, dayOfYear: 323 },
       { id: 11, value: 11996420000, month: 5, date: 19, hour: 20, minute: 20, second: 20, dayOfYear: 139 },
       { id: 12, value: 13050061000, month: 6, date: 1, hour: 1, minute: 1, second: 1, dayOfYear: 152 },
-      { id: 13, value: 15638400000, month: 7, date: 1, hour: 0, minute: 0, second: 0, dayOfYear: 182 },
     ],
   },
   mixedValues: [
