@@ -1,24 +1,16 @@
 const { MONTHS_INDEX, UNIT_MS_VALUES } = require('./constants');
 
 /** prefixUnitZero
- * add a 0 to a number below 10 (ie, a unit)
+ * Add a 0 to a number less than two digits long
  * @param val: number
  * @return string
  */
 function prefixUnitZero(val) {
-  // let newVal = val;
-  // // if(val < 0) {
-  // //   newVal = val / -1;
-  // // }
-  // newVal = newVal < 10 ? `0${newVal}` : newVal;
-  // if(val < 0) {
-  //   newVal = `-${newVal}`;
-  // }
   return val < 10 ? `0${val}` : val;
 }
 
-/** prefixUnitZero
- * add a 0 to a number below 10 (ie, a unit)
+/** prefixUnitZeroSigned
+ * Add a 0 to a number less than two digits long including negative numbers
  * @param val: number
  * @return string
  */
@@ -62,8 +54,6 @@ function getMonthFromNumber(monthNumber) {
   }
   return MONTHS_INDEX[monthNumber - 1];
 }
-
-
 
 function getMsFromTimeUnit(time, unit) {
   return time * (UNIT_MS_VALUES[unit] || 0);

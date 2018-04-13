@@ -33,6 +33,10 @@ const YEAR_NO_LEAP_MS = DAY_MS * 365;
 const YEAR_LEAP_MS = DAY_MS * 366;
 const FEB_29_LAST_MS_PARTIAL = 5270399999;
 const FORMAT_PARTS = {
+  AM: 'a',
+  AM_UPPERCASE: 'A',
+  PM: 'p',
+  PM_UPPERCASE: 'P',
   MILLISECONDS: 'ms',
   SECONDS: 's',
   SECONDS_PADDED: 'ss',
@@ -58,13 +62,19 @@ const FORMAT_PARTS = {
 };
 
 const UNIT_MS_VALUES = {
-  ms: 0,
+  ms: 1,
   s: 1000,
   m: 60000,
   h: 3600000,
+  d: 86400000,
+  w: 604800000,
 };
 
 const FORMAT_PARTS_FN_MAP = {
+  [FORMAT_PARTS.AM]: { value: 'am' },
+  [FORMAT_PARTS.AM_UPPERCASE]: { value: 'AM' },
+  [FORMAT_PARTS.PM]: { value: 'pm' },
+  [FORMAT_PARTS.PM_UPPERCASE]: { value: 'PM' },
   [FORMAT_PARTS.SECONDS]: { fn: 'getSeconds', args: [] },
   [FORMAT_PARTS.SECONDS_PADDED]: { fn: 'getSeconds', args: [true] },
   [FORMAT_PARTS.MINUTES]: { fn: '_getFormatMinutes', args: [] },

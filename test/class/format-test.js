@@ -19,18 +19,19 @@ const { MONTHS_INDEX } = require('../../src/constants');
   h hh      1..12 Hours (12 hour time used with a A.)
   m mm      0..59 Minutes
   s ss      0..59 Seconds
+  a A p P   am pm Post or ante meridiem (Note the one character a p are also considered valid)
 
   TODO:
-  a A       am pm Post or ante meridiem (Note the one character a p are also considered valid)
   S SS SSS  0..999  Fractional seconds
   Z ZZ      +12:00  Offset from UTC as +-HH:mm, +-HHmm, or Z
 
 */
 const vals = [
+  { formatString: undefined, output: (...rest) => '' },
   { formatString: 'YY-MM-DD', output: (...rest) => `${rest[0]}-${prefixUnitZero(rest[1])}-${prefixUnitZero(rest[2])}` },
-  { formatString: 'Do MMMM', output: (...rest) => `${getOrdinal(rest[2])} ${MONTHS_INDEX[rest[1] - 1].long}` },
+  { formatString: 'Do MMMMP', output: (...rest) => `${getOrdinal(rest[2])} ${MONTHS_INDEX[rest[1] - 1].long}PM` },
   { formatString: 'D/MMMM/YY', output: (...rest) => `${rest[2]}/${MONTHS_INDEX[rest[1] - 1].long}/${rest[0]}` },
-  { formatString: 'HH:mm', output: (...rest) => `${prefixUnitZero(rest[3])}:${prefixUnitZero(rest[4])}` },
+  { formatString: 'HH:mma', output: (...rest) => `${prefixUnitZero(rest[3])}:${prefixUnitZero(rest[4])}am` },
 ];
 
 describe('UTCDate', () => {
@@ -48,12 +49,17 @@ describe('UTCDate', () => {
   });
 });
 
-describe.only('escaped string', () => {
-  it('should', () => {
-    const utcDate = new UTCDate([2018, 4, 7, 0, 0, 0, 0]);
-    const format = 'YY-MM-DD [MM]';
-    const expected = '2018-04-07 MM';
-    assert.equal(utcDate.format(format), expected);
-  })
+describe('escaped string', () => {
+  const escapedValues = [
+    { constructorArg: [2018, 4, 7, 0, 0, 0, 0], formatString: 'YY-MM-DD [MM]', expect: '2018-04-07 MM' },
+    { constructorArg: [1980, 4, 7, 0, 0, 0, 0], formatString: 'D [THIS IS AN ESCAPED STRING] YY-MM-DD', expect: '7 THIS IS AN ESCAPED STRING 1980-04-07' },
+  ];
+
+  escapedValues.forEach(testValue => {
+    it(`should return ${testValue.expect} when constructed with ${testValue.constructorArg.join()} and given formatString ${testValue.formatString}`, () => {
+      const utcDate = new UTCDate(testValue.constructorArg);
+      assert.equal(utcDate.format(testValue.formatString), testValue.expect);
+    });
+  });
 });
 
