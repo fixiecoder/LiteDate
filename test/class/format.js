@@ -48,3 +48,12 @@ describe('UTCDate', () => {
   });
 });
 
+describe.only('escaped string', () => {
+  it('should', () => {
+    const utcDate = new UTCDate([2018, 4, 7, 0, 0, 0, 0]);
+    const format = 'YY-MM-DD [MM]';
+    const expected = '2018-04-07 MM';
+    assert.equal(utcDate.format(format), expected);
+  })
+});
+
