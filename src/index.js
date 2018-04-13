@@ -27,10 +27,8 @@ const { format } = require('./methods');
  * @constructor
  *
  * @param {Number|Array|String} date epoch date in milliseconds lkjaljfdsa
- * jshdghsdag
- * sdjhgkjsdhgkjhsdag
- * dhsgsdalgk
- * 
+ *
+ * @return {Object}
  */
 class UTCDate {
   constructor(_date) {
@@ -142,6 +140,10 @@ class UTCDate {
     return this._cache.hour;
   }
 
+  /**
+   * @desc returns an ISO8601 formatted date string
+   * @return {String} ISO8601 formatted date string
+   */
   toISOString() {
     return `${this.getYear()}-${prefixUnitZero(this.getMonth())}-${prefixUnitZero(this.getDate())}T${prefixUnitZero(this.getHour())}:${prefixUnitZero(0)}:${prefixUnitZero(0)}Z`;
   }
@@ -154,22 +156,35 @@ class UTCDate {
     return this.toISOString();
   }
 
+  /**
+   * @desc Epoch MS is the amount of milliseconds since January 1, 1970 00:00:00 UTC.
+   * @return {Number} epoch in milliseconds
+   */
   getEpochMS() {
     return this._cache.epochMs;
   }
 
   /**
-   * The time in milliseconds after epoch: 1970-01-01T00:00:00
+   * @desc The current time represented by the number milliseconds after epoch: 1970-01-01T00:00:00
    * @return {Number}
    */
   getTime() {
     return this._cache.epochMs;
   }
 
-  now() {
+  /**
+   * @desc returns the number of milliseconds elapsed since January 1, 1970 00:00:00 UTC.
+   * @return {Number} epoch in milliseconds
+   * @static
+   */
+  static now() {
     return Date.now ? Date.now() : +(new Date());
   }
 
+  /**
+   * @desc Gets the year of the date object for the value it was initialised with.
+   * @return {Number} 4 digit year as integer e.g. 1980
+   */
   getYear() {
     if(this._cache.year === undefined) {
       this._setYearAndPartialYearMS();
@@ -228,7 +243,7 @@ class UTCDate {
   }
 
   addTime(time = 0, unit = 'ms') {
-    const initTime = getMsFromTimeUnit(time, unit);
+    const initTime = getMsFromTimeUnit(time, unit) + this.cache._epochMs;
     return new UTCDate(initTime);
   }
 }
