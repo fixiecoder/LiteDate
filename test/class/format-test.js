@@ -28,10 +28,10 @@ const { MONTHS_INDEX } = require('../../src/constants');
 */
 const vals = [
   { formatString: undefined, output: (...rest) => '' },
-  { formatString: 'YY-MM-DD', output: (...rest) => `${rest[0]}-${prefixUnitZero(rest[1])}-${prefixUnitZero(rest[2])}` },
-  { formatString: 'Do MMMMP', output: (...rest) => `${getOrdinal(rest[2])} ${MONTHS_INDEX[rest[1] - 1].long}PM` },
-  { formatString: 'D/MMMM/YY', output: (...rest) => `${rest[2]}/${MONTHS_INDEX[rest[1] - 1].long}/${rest[0]}` },
-  { formatString: 'HH:mma', output: (...rest) => `${prefixUnitZero(rest[3])}:${prefixUnitZero(rest[4])}am` },
+  { formatString: 'YY-MM-DD', output: (...rest) => `${rest[0].toString().substring(2)}-${prefixUnitZero(rest[1])}-${prefixUnitZero(rest[2])}` },
+  { formatString: 'Do MMMMP', output: (...rest) => `${getOrdinal(rest[2])} ${MONTHS_INDEX[rest[1] - 1].long}${rest[3] < 12 ? 'AM' : 'PM'}` },
+  { formatString: 'D/MMMM/YY', output: (...rest) => `${rest[2]}/${MONTHS_INDEX[rest[1] - 1].long}/${rest[0].toString().substring(2)}` },
+  { formatString: 'HH:mma', output: (...rest) => `${prefixUnitZero(rest[3])}:${prefixUnitZero(rest[4])}${rest[3] < 12 ? 'am' : 'pm'}` },
 ];
 
 describe('UTCDate', () => {
@@ -51,8 +51,8 @@ describe('UTCDate', () => {
 
 describe('escaped string', () => {
   const escapedValues = [
-    { constructorArg: [2018, 4, 7, 0, 0, 0, 0], formatString: 'YY-MM-DD [MM]', expect: '2018-04-07 MM' },
-    { constructorArg: [1980, 4, 7, 0, 0, 0, 0], formatString: 'D [THIS IS AN ESCAPED STRING] YY-MM-DD', expect: '7 THIS IS AN ESCAPED STRING 1980-04-07' },
+    { constructorArg: [2018, 4, 7, 0, 0, 0, 0], formatString: 'YY-MM-DD [MM]', expect: '18-04-07 MM' },
+    { constructorArg: [1980, 4, 7, 0, 0, 0, 0], formatString: 'D [THIS IS AN ESCAPED STRING] YY-MM-DD', expect: '7 THIS IS AN ESCAPED STRING 80-04-07' },
   ];
 
   escapedValues.forEach(testValue => {

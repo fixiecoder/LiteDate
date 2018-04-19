@@ -1,4 +1,5 @@
 const { MONTHS_INDEX, UNIT_MS_VALUES } = require('./constants');
+const { FORMAT_PARTS_PARSE_MAP } = require('./constants');
 
 /** prefixUnitZero
  * Add a 0 to a number less than two digits long
@@ -59,10 +60,25 @@ function getMsFromTimeUnit(time, unit) {
   return time * (UNIT_MS_VALUES[unit] || 0);
 }
 
+function parseFormattedDate(dateString, formatString) {
+  const rx = /\[(.+)\]|(ss?)|(mm?)|(hh?)|(HH?)|(dd?d?d?)|(DD?o?)|(MM?M?M?)|(YY?Y?Y)|(.)/g;
+  const match = formatString.match(rx);
+  const result = [];
+  let pos = 0;
+  for(let i = 0; i < match.length; i += 1) {
+    const part = FORMAT_PARTS_PARSE_MAP[match[i]];
+    
+
+  }
+  console.log(match);
+
+}
+
 module.exports = {
   getOrdinal,
   prefixUnitZero,
   getMonthFromNumber,
   prefixUnitZeroSigned,
   getMsFromTimeUnit,
+  parseFormattedDate,
 };

@@ -70,11 +70,16 @@ const UNIT_MS_VALUES = {
   w: 604800000,
 };
 
+const MERIDIEMS = {
+  AM: { lower: 'am', upper: 'AM' },
+  PM: { lower: 'pm', upper: 'PM' }
+};
+
 const FORMAT_PARTS_FN_MAP = {
-  [FORMAT_PARTS.AM]: { value: 'am' },
-  [FORMAT_PARTS.AM_UPPERCASE]: { value: 'AM' },
-  [FORMAT_PARTS.PM]: { value: 'pm' },
-  [FORMAT_PARTS.PM_UPPERCASE]: { value: 'PM' },
+  [FORMAT_PARTS.AM]: { fn: '_getFormatMeridiem', args: [false] },
+  [FORMAT_PARTS.AM_UPPERCASE]: { fn: '_getFormatMeridiem', args: [true] },
+  [FORMAT_PARTS.PM]: { fn: '_getFormatMeridiem', args: [false] },
+  [FORMAT_PARTS.PM_UPPERCASE]: { fn: '_getFormatMeridiem', args: [true] },
   [FORMAT_PARTS.SECONDS]: { fn: 'getSeconds', args: [] },
   [FORMAT_PARTS.SECONDS_PADDED]: { fn: '_getFormatSeconds', args: [true] },
   [FORMAT_PARTS.MINUTES]: { fn: '_getFormatMinutes', args: [] },
@@ -94,8 +99,36 @@ const FORMAT_PARTS_FN_MAP = {
   [FORMAT_PARTS.MONTH_PADDED]: { fn: '_getFormatMonths', args: [true] },
   [FORMAT_PARTS.MONTH_NAME_SHORT]: { fn: '_getFormatMonthName', args: ['short'] },
   [FORMAT_PARTS.MONTH_NAME_LONG]: { fn: '_getFormatMonthName', args: ['long'] },
-  [FORMAT_PARTS.YEAR]: { fn: 'getYear', args: [] },
-  [FORMAT_PARTS.YEAR_FULL]: { fn: 'getYear', args: [] },
+  [FORMAT_PARTS.YEAR]: { fn: '_getFormatYear', args: ['short'] },
+  [FORMAT_PARTS.YEAR_FULL]: { fn: '_getFormatYear', args: ['long'] },
+};
+
+const FORMAT_PARTS_PARSE_MAP = {
+  [FORMAT_PARTS.AM]: { type: 'str', length: 2, exact: true },
+  [FORMAT_PARTS.AM_UPPERCASE]: { value: 'str', length: 2, exact: true },
+  [FORMAT_PARTS.PM]: { type: 'str', length: 2, exact: true },
+  [FORMAT_PARTS.PM_UPPERCASE]: { type: 'str', length: 2, exact: true },
+  [FORMAT_PARTS.SECONDS]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.SECONDS_PADDED]: { type: 'num', length: 2, exact: true },
+  [FORMAT_PARTS.MINUTES]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.MINUTES_PADDED]: { type: 'num', length: 2, exact: true },
+  [FORMAT_PARTS.HOURS_24]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.HOURS_24_PADDED]: { type: 'num', length: 2, exact: true },
+  [FORMAT_PARTS.HOURS_12]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.HOURS_12_PADDED]: { type: 'num', length: 2, exact: true },
+  [FORMAT_PARTS.EPOCH_MS]: { type: 'num', length: null, exact: false },
+  [FORMAT_PARTS.EPOCH_S]: { type: 'num', length: null, exact: false },
+  [FORMAT_PARTS.DAY_NAME_LONG]: { type: 'str', length: 2, exact: false },
+  [FORMAT_PARTS.DAY_NAME_SHORT]: { type: 'str', length: 2, exact: false },
+  [FORMAT_PARTS.DATE_ORDINAL]: { type: 'str', length: 4, exact: false },
+  [FORMAT_PARTS.DATE]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.DATE_PADDED]: { type: 'num', length: 2, exact: true },
+  [FORMAT_PARTS.MONTH]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.MONTH_PADDED]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.MONTH_NAME_SHORT]: { type: 'str', length: 2, exact: false },
+  [FORMAT_PARTS.MONTH_NAME_LONG]: { type: 'str', length: 2, exact: false },
+  [FORMAT_PARTS.YEAR]: { type: 'num', length: 2, exact: false },
+  [FORMAT_PARTS.YEAR_FULL]: { type: 'num', length: 2, exact: false },
 };
 
 /*
@@ -176,4 +209,6 @@ module.exports = {
   FORMAT_PARTS,
   FORMAT_PARTS_FN_MAP,
   UNIT_MS_VALUES,
+  FORMAT_PARTS_PARSE_MAP,
+  MERIDIEMS,
 };

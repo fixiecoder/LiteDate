@@ -1,4 +1,4 @@
-const { prefixUnitZero, getOrdinal, getMsFromTimeUnit } = require('./helpers');
+const { prefixUnitZero, getOrdinal, getMsFromTimeUnit, parseFormattedDate } = require('./helpers');
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
@@ -7,6 +7,7 @@ const {
   HALF_DAY,
   QUARTER_DAY,
   YEAR_MS,
+  MERIDIEMS
 } = require('./constants');
 const {
   calculateYearAndPartialMs,
@@ -31,7 +32,7 @@ const { format } = require('./methods');
  * @return {Object}
  */
 class UTCDate {
-  constructor(_date) {
+  constructor(_date, _format) {
     this._cache = {};
     this._monthsIndex = MONTHS_INDEX;
     this._daysOfWeek = DAYS_OF_WEEK;
@@ -51,6 +52,9 @@ class UTCDate {
       this._cache.isLeapYear = isLeapYear;
     } else if(typeof _date === 'number') {
       this._cache.epochMs = _date;
+    } else if(typeof _date === 'string' && typeof _format === 'string') {
+      const dateParts = parseFormattedDate(_date, _format);
+
     }
     this._setYearAndPartialYearMS();
     this._setIsLeapYear();
@@ -143,6 +147,19 @@ class UTCDate {
       month = prefixUnitZero(month);
     }
     return month;
+  }
+
+  _getFormatYear(type = this._TYPES.LONG) {
+    if(type === this._TYPES.LONG) {
+      return this.getYear();
+    } else {
+      return this.getYear().toString().substring(2);
+    }
+  }
+
+  _getFormatMeridiem(useUppercase = true) {
+    const meridiemCase = useUppercase ? 'upper' : 'lower';
+    return this.getHours() > 11 ? MERIDIEMS.PM[meridiemCase] : MERIDIEMS.AM[meridiemCase];
   }
 
   _getHours() {
