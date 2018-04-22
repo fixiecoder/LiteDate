@@ -31,58 +31,34 @@ const { format } = require('./methods');
  * @return {Object}
  */
 class UTCDate {
-  constructor(_date) {
+  constructor(...args) {
     this._cache = {};
-    this._monthsIndex = MONTHS_INDEX;
-    this._daysOfWeek = DAYS_OF_WEEK;
-    this._originalDateValue = _date;
-    if(_date === undefined) {
-      this._cache.epochMs = Date.now();
-    } else if(Array.isArray(_date)) {
-      const { isLeapYear, epochMs } = caclulateEpochMS(_date);
-      this._cache.epochMs = epochMs;
-      this._cache.year = _date[0] || 1970;
-      this._cache.month = _date[1] || 1;
-      this._cache.date = _date[2] || 1;
-      this._cache.hour = _date[3] || 0;
-      this._cache.minute = _date[4] || 0;
-      this._cache.seconds = _date[5] || 0;
-      this._cache.ms = _date[6] || 0;
-      this._cache.isLeapYear = isLeapYear;
-    } else if(typeof _date === 'number') {
-      this._cache.epochMs = _date;
+    if(typeof args[0] === 'number') {
+      this._cache._date = new Date(args[0]);
     }
-    this._setYearAndPartialYearMS();
-    this._setIsLeapYear();
+    // this._monthsIndex = MONTHS_INDEX;
+    // this._daysOfWeek = DAYS_OF_WEEK;
+    // this._originalDateValue = _date;
+    // if(_date === undefined) {
+    //   this._cache.epochMs = Date.now();
+    // } else if(Array.isArray(_date)) {
+    //   const { isLeapYear, epochMs } = caclulateEpochMS(_date);
+    //   this._cache.epochMs = epochMs;
+    //   this._cache.year = _date[0] || 1970;
+    //   this._cache.month = _date[1] || 1;
+    //   this._cache.date = _date[2] || 1;
+    //   this._cache.hour = _date[3] || 0;
+    //   this._cache.minute = _date[4] || 0;
+    //   this._cache.seconds = _date[5] || 0;
+    //   this._cache.ms = _date[6] || 0;
+    //   this._cache.isLeapYear = isLeapYear;
+    // } else if(typeof _date === 'number') {
+    //   this._cache.epochMs = _date;
+    // }
+    // this._setYearAndPartialYearMS();
+    // this._setIsLeapYear();
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
     this.format = format;
-  }
-
-  _setIsLeapYear() {
-    if(this._cache.isLeapYear === undefined) {
-      this._cache.isLeapYear = calculateIsLeapYear(this.getYear());
-    }
-    return this._cache.isLeapYear;
-  }
-
-  _getIsLeapYear() {
-    if(this._cache.isLeapYear === undefined) {
-      this._setIsLeapYear();
-    }
-    return this._cache.isLeapYear;
-  }
-
-  _setYearAndPartialYearMS() {
-    const { year, partialYearMs } = calculateYearAndPartialMs(this._cache.epochMs);
-    this._cache.partialYearMS = partialYearMs;
-    this._cache.year = year;
-  }
-
-  _getPartialYearMS() {
-    if(this._cache.partialYearMS === undefined) {
-      this._setYearAndPartialYearMS();
-    }
-    return this._cache.partialYearMS;
   }
 
   _getFormatEpoch(type = 'ms') {
@@ -106,7 +82,7 @@ class UTCDate {
   }
 
   _getFormatHours(zeroPadded = false, twelveHour = false) {
-    let hours = this._getHours();
+    let hours = this.getHours();
     if(twelveHour && this._cache.hour > 12) {
       hours -= 12;
     }
@@ -143,13 +119,6 @@ class UTCDate {
       month = prefixUnitZero(month);
     }
     return month;
-  }
-
-  _getHours() {
-    if(this._cache.hour === undefined) {
-      this._cache.hour = calculateHour(this._cache.epochMs);
-    }
-    return this._cache.hour;
   }
 
   /**
@@ -237,7 +206,7 @@ class UTCDate {
   }
 
   getHours() {
-    return this._getHours();
+    return this._date.getUTCHours();
   }
 
   getMinutes() {
