@@ -2,11 +2,6 @@ const { prefixUnitZero, getOrdinal, getMsFromTimeUnit } = require('./helpers');
 const {
   MONTHS_INDEX,
   DAYS_OF_WEEK,
-  DAYS_OF_WEEK_EPOCH_BASED,
-  DAY_MS,
-  HALF_DAY,
-  QUARTER_DAY,
-  YEAR_MS,
 } = require('./constants');
 const {
   calculateDayOfYear,
