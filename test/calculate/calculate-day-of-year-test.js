@@ -16,7 +16,7 @@ describe('calculateDayOfYear', () => {
       const description =
         `#${partialYear.id} - should return day of year: ${expected}, when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}`;
       it(description, () => {
-        const result = calculateDayOfYear(partialYear.value);
+        const result = calculateDayOfYear(true, partialYear.month, partialYear.date);
         assert.equal(result, expected);
       });
     });
@@ -34,7 +34,7 @@ describe('calculateDayOfYear', () => {
       const description =
         `#${partialYear.id} - should return day of year: ${expected}, when given epoch for date ${y}-${mo}-${d}T${h}:${mi}:${s}`;
       it(description, () => {
-        const result = calculateDayOfYear(partialYear.value);
+        const result = calculateDayOfYear(false, partialYear.month, partialYear.date);
         assert.equal(result, expected);
       });
     });

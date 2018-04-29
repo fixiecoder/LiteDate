@@ -9,16 +9,7 @@ const {
   YEAR_MS,
 } = require('./constants');
 const {
-  calculateYearAndPartialMs,
   calculateDayOfYear,
-  calculateDayOfWeek,
-  caclulateEpochMS,
-  calculateIsLeapYear,
-  calculateHour,
-  calculateDateFromPartialYear,
-  calculateMonthNumberFromDayOfYear,
-  calculateMinutes,
-  calculateSeconds,
 } = require('./calculate');
 const { format } = require('./methods');
 
@@ -33,30 +24,24 @@ const { format } = require('./methods');
 class UTCDate {
   constructor(...args) {
     this._cache = {};
-    if(typeof args[0] === 'number') {
-      this._cache._date = new Date(args[0]);
+    if(Array.isArray(args[0])) {
+      this._date = new Date(
+        Date.UTC(
+          args[0][0],
+          args[0][1] - 1 || 0, // convert actual month number to month index, fallback to January (0)
+          args[0][2] || 1,
+          args[0][3] || 0,
+          args[0][4] || 0,
+          args[0][5] || 0,
+          args[0][6] || 0
+        )
+      );
+    } else if(typeof args[0] === 'number') {
+      this._date = new Date(args[0]);
+    } else {
+      this._date = new Date();
     }
-    // this._monthsIndex = MONTHS_INDEX;
-    // this._daysOfWeek = DAYS_OF_WEEK;
-    // this._originalDateValue = _date;
-    // if(_date === undefined) {
-    //   this._cache.epochMs = Date.now();
-    // } else if(Array.isArray(_date)) {
-    //   const { isLeapYear, epochMs } = caclulateEpochMS(_date);
-    //   this._cache.epochMs = epochMs;
-    //   this._cache.year = _date[0] || 1970;
-    //   this._cache.month = _date[1] || 1;
-    //   this._cache.date = _date[2] || 1;
-    //   this._cache.hour = _date[3] || 0;
-    //   this._cache.minute = _date[4] || 0;
-    //   this._cache.seconds = _date[5] || 0;
-    //   this._cache.ms = _date[6] || 0;
-    //   this._cache.isLeapYear = isLeapYear;
-    // } else if(typeof _date === 'number') {
-    //   this._cache.epochMs = _date;
-    // }
-    // this._setYearAndPartialYearMS();
-    // this._setIsLeapYear();
+
     this._TYPES = { LONG: 'long', SHORT: 'short', MID: 'mid' };
     this.format = format;
   }
@@ -126,7 +111,10 @@ class UTCDate {
    * @return {String} ISO8601 formatted date string
    */
   toISOString() {
-    return `${this.getYear()}-${prefixUnitZero(this.getMonth())}-${prefixUnitZero(this.getDate())}T${prefixUnitZero(this.getHour())}:${prefixUnitZero(0)}:${prefixUnitZero(0)}Z`;
+    if(this._cache._isoString === undefined) {
+      this._cache._isoString = `${this.getYear()}-${prefixUnitZero(this.getMonth())}-${prefixUnitZero(this.getDate())}T${prefixUnitZero(this.getHour())}:${prefixUnitZero(0)}:${prefixUnitZero(0)}Z`;
+    }
+    return this._cache._isoString;
   }
 
   valueOf() {
@@ -142,7 +130,7 @@ class UTCDate {
    * @return {Number} epoch in milliseconds
    */
   getEpochMS() {
-    return this._cache.epochMs;
+    return this.getTime();
   }
 
   /**
@@ -150,7 +138,10 @@ class UTCDate {
    * @return {Number}
    */
   getTime() {
-    return this._cache.epochMs;
+    if(this._cache._time === undefined) {
+      this._cache._time = this._date.getTime();
+    }
+    return this._cache._time;
   }
 
   /**
@@ -167,64 +158,71 @@ class UTCDate {
    * @return {Number} 4 digit year as integer e.g. 1980
    */
   getYear() {
-    if(this._cache.year === undefined) {
-      this._setYearAndPartialYearMS();
+    if(this._cache._year === undefined) {
+      this._cache._year = this._date.getUTCFullYear();
     }
-    return this._cache.year;
+    return this._cache._year;
   }
 
   getDayOfYear() {
-    if(this._cache.dayOfYear === undefined) {
-      this._cache.dayOfYear = calculateDayOfYear(this._getPartialYearMS());
+    if(this._cache._dayOfYear === undefined) {
+      this._cache._dayOfYear = calculateDayOfYear(this.getIsLeapYear(), this.getMonth(), this.getDate());
     }
-    return this._cache.dayOfYear;
+    return this._cache._dayOfYear;
+  }
+
+  getIsLeapYear() {
+    if(this._cache._isLeapYear === undefined) {
+      this._cache._isLeapYear = !(2016 % 4);
+    }
+    return this._cache._isLeapYear;
   }
 
   getMonth() {
-    if(this._cache.month === undefined) {
-      this._cache.month = calculateMonthNumberFromDayOfYear(this.getDayOfYear(), this._cache.isLeapYear);
-    }
-    return this._cache.month;
+    return this._date.getUTCMonth() + 1;
   }
 
   getMonthName(type = this._TYPES.LONG) {
-    return MONTHS_INDEX[this.getMonth() - 1][type];
+    return MONTHS_INDEX[this._date.getUTCMonth()][type];
   }
 
   getDate() {
-    if(this._cache.date === undefined) {
-      this._cache.date = calculateDateFromPartialYear(this.getDayOfYear(), this._getIsLeapYear());
+    if(this._cache._date === undefined) {
+      this._cache._date = this._date.getUTCDate();
     }
-    return this._cache.date;
+    return this._cache._date;
   }
 
   getDayOfWeek() {
-    if(this._cache.dayOfWeek === undefined) {
-      this._cache.dayOfWeek = calculateDayOfWeek(this._cache.epochMs);
+    if(this._cache._dayOfWeek === undefined) {
+      this._cache._dayOfWeek = this._date.getUTCDay();
     }
-    return this._cache.dayOfWeek;
+    return this._cache._dayOfWeek;
   }
 
   getHours() {
-    return this._date.getUTCHours();
+    if(this._cache._hours === undefined) {
+      this._cache._hours = this._date.getUTCHours();
+    }
+    return this._cache._hours;
   }
 
   getMinutes() {
-    if(this._cache.minutes === undefined) {
-      this._cache.minutes = calculateMinutes(this._cache.epochMs);
+    if(this._cache._minutes === undefined) {
+      this._cache._minutes = this._date.getUTCMinutes();
     }
-    return this._cache.minutes;
+    return this._cache._minutes;
   }
 
   getSeconds() {
-    if(this._cache.seconds === undefined) {
-      this._cache.seconds = calculateSeconds(this._cache.epochMs);
+    if(this._cache._seconds === undefined) {
+      this._cache._seconds = this._date.getSeconds();
     }
-    return this._cache.seconds;
+    return this._cache._seconds;
   }
 
   addTime(time = 0, unit = 'ms') {
-    const initTime = getMsFromTimeUnit(time, unit) + this.cache._epochMs;
+    const initTime = getMsFromTimeUnit(time, unit) + this.getTime();
     return new UTCDate(initTime);
   }
 }
