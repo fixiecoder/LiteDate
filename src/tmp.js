@@ -3,9 +3,24 @@ const moment = require('moment');
 
 // const date = new UTCDate();
 
-const d = moment([2018, 3, 7, 0, 0]);
+// const d = moment([2018, 3, 7, 0, 0]);
+// d.toJSON = () => 'HELLO';
 
-console.log(d);
+class D {
+  toJSON() {
+    return { HELLO: 'colin' };
+  }
+
+  toString() {
+    return 'HELLO';
+  }
+
+  valueOf() {
+    return '2018-04-07T10:15:12Z';
+  }
+}
+
+console.log(new D());
 // console.log(d.toISOString());
 
 // console.log(date.format('YY/MM/DD h:mm:ss ddd MMM x X'));
